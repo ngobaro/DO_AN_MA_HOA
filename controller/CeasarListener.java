@@ -24,9 +24,13 @@ public class CeasarListener implements ActionListener {
             ceasarView.getjTextField_value().setText(value - 1 + ""); // Giảm giá trị
             ceasarView.setKey(value);
         } else if (src.equals("Encryption")) {
-
+            int value = Integer.parseInt(ceasarView.getjTextField_value().getText());
+            ceasarView.setKey(value);
+            ceasarView.encryption();
         } else if (src.equals("Decrytion")) {
-
+            int value = Integer.parseInt(ceasarView.getjTextField_value().getText());
+            ceasarView.setKey(value);
+            ceasarView.decryption();
         }
     }
 

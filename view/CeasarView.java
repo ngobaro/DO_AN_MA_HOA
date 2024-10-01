@@ -23,6 +23,8 @@ public class CeasarView extends JPanel {
 
     private JTextField jTextField_value;
     private JLabel jLabel_key;
+    private JLabel jLabel_messenger;
+    private JLabel jLabel_result;
 
     private JScrollPane jScrollPane_plain;
     private JScrollPane jScrollPane_cipher;
@@ -31,8 +33,12 @@ public class CeasarView extends JPanel {
 
     private JPanel jPanel_BackGround;
     private JPanel jPanel;
+    private JPanel jPanel_messenger;
+    private JPanel jPanel_result;
+    private JPanel jPanel_Label_messenger;
+    private JPanel jPanel_Label_result;
 
-    JPanel jPanel_Button;
+    private JPanel jPanel_Button;
 
     private JButton jButton_1;
     private JButton jButton_2;
@@ -47,7 +53,7 @@ public class CeasarView extends JPanel {
     public CeasarView() {
         BufferedImage backgroundImage;
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/view/images.jpg"));
+            backgroundImage = ImageIO.read(getClass().getResource("/view/g e o r g i a n a.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -67,6 +73,15 @@ public class CeasarView extends JPanel {
         ceasarModel = new CeasarModel();
         ac = new CeasarListener(this);
         font = new Font("Arial", Font.BOLD, 15);
+
+        jPanel = new JPanel(new GridLayout(1, 1, 15, 40));
+        jPanel_messenger = new JPanel(new GridLayout(1, 1, 5, 40));
+        jPanel_result = new JPanel(new GridLayout(1, 1, 5, 40));
+        jPanel_Label_messenger = new JPanel();
+        jPanel_Label_result = new JPanel();
+
+        jPanel_BackGround.setLayout(new GridBagLayout());
+        
 
         jTextField_value = new JTextField(ceasarModel.getKey() + "");
         jTextField_value.setHorizontalAlignment(JTextField.CENTER);
@@ -104,31 +119,58 @@ public class CeasarView extends JPanel {
 
         jPanel_Button.setOpaque(false);
 
-        jPanel = new JPanel(new GridLayout(2, 1, 15, 40));
-        jPanel_BackGround.setLayout(new GridBagLayout());
+       
 
-        jPanel.add(jScrollPane_plain);
-        jPanel.add(jScrollPane_cipher);
-
+        jPanel_messenger.add(jScrollPane_plain);
+        jPanel_result.add(jScrollPane_cipher);
+        font = new Font("Arial", Font.BOLD, 15);
         jLabel_key = new JLabel("Key");
+        jLabel_messenger = new JLabel(" Messenger");
+        jPanel_Label_messenger.add(jLabel_messenger);
+        jLabel_result = new JLabel(" Result");
+        jPanel_Label_result.add(jLabel_result);
+        jPanel_Label_messenger.setOpaque(false);
+        jPanel_Label_result.setOpaque(false);
+        jLabel_key.setFont(font);
+        jLabel_messenger.setFont(font);
+        jLabel_result.setFont(font);
+       
 
         gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 10, 0, 10);
+        gbc.insets = new Insets(0, 10, 0, 10);
         gbc.gridx = 0;
-        gbc.gridy = 0;
-        jPanel_BackGround.add(jPanel, gbc);
+        gbc.gridy = 1;
+        jPanel_BackGround.add(jPanel_messenger, gbc);
+      
+        gbc.insets = new Insets(0, 10, 0, 10);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        jPanel_BackGround.add(jPanel_result, gbc);
+        gbc.insets = new Insets(50, 5, 5, 5);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        jPanel_BackGround.add(jLabel_key, gbc);
         gbc.insets = new Insets(0, 5, 5, 5);
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 5;
         jPanel_BackGround.add(jPanel_key, gbc);
         gbc.insets = new Insets(25, 5, 5, 5);
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 6;
         jPanel_BackGround.add(jPanel_Button, gbc);
-        gbc.insets = new Insets(50, 5, 5, 5);
+        
+        
+        gbc.insets = new Insets(5, 10, 0, 10);
         gbc.gridx = 0;
-        gbc.gridy = 1;
-        jPanel_BackGround.add(jLabel_key, gbc);
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        jPanel_BackGround.add(jPanel_Label_messenger, gbc);
+
+        gbc.insets = new Insets(5, 10, 0, 10);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        jPanel_BackGround.add(jPanel_Label_result, gbc);
+
 
         jPanel.setOpaque(false);
 
@@ -148,4 +190,26 @@ public class CeasarView extends JPanel {
     public void setjTextField_value(JTextField jTextField_value) {
         this.jTextField_value = jTextField_value;
     }
+
+    public void setPlainText(String plainText) {
+        ceasarModel.setPlainText(plainText);
+    }
+
+    public void encryption() {
+        this.ceasarModel.setPlainText(this.jTextArea_plain.getText());
+        this.ceasarModel.Encryption();
+        this.jTextArea_cipher.setText(ceasarModel.getCipherText());
+        System.out.println(ceasarModel.getKey());
+        // this.ceasarModel.setCipherText(this.jTextArea_cipher.getText());
+       
+        // System.out.println(ceasarModel.getCipherText());
+    }
+    public void decryption() {
+        this.ceasarModel.setPlainText(this.jTextArea_plain.getText());
+        this.ceasarModel.Decryption();
+        this.jTextArea_cipher.setText(ceasarModel.getCipherText());
+        System.out.println(ceasarModel.getKey());
+       
+    }
+    
 }
