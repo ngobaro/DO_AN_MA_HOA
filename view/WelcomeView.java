@@ -15,7 +15,6 @@ public class WelcomeView extends JPanel {
         this.setLayout(new GridBagLayout());
         jlLabel = new JLabel("Welcome to Java");
         this.add(jlLabel);
-
     }
 
     public void showWelcome() {

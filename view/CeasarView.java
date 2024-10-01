@@ -24,5 +24,4 @@ public class CeasarView extends JPanel {
     public void showCeasear() {
         mainWindow.show(this);
     }
-
 }

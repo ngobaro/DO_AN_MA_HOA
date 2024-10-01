@@ -20,7 +20,6 @@ public class PlayFairModel {
     }
     //---------------------------------
 
-
     // hàm geter và seter
     public String getPlainText() {
         return plainText;
@@ -54,12 +53,9 @@ public class PlayFairModel {
         this.array = array;
     }
 
-
     public String[][] initArray(){
         String[][] a =  new String[5][5];
-
         return a;
     }
     //---------------------------------
-
 }
