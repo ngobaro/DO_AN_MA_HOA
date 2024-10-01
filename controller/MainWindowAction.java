@@ -2,7 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.*;
 import javax.swing.text.PlainView;
 
 import main.MainWindow;
@@ -11,7 +11,9 @@ import view.PlayFairView;
 
 /**
  * MainWindowAction
+ * //
  */
+
 public class MainWindowAction implements ActionListener {
     private MainWindow mainWindow;
     private CeasarView ceasarView;
@@ -27,17 +29,22 @@ public class MainWindowAction implements ActionListener {
         if (button.equals("Ceasar")) {
             ceasarView = new CeasarView();
             mainWindow.show(ceasarView);
+            mainWindow.setjButton_Caesar();
             System.out.println("doi panel cua Ceasar ");
         } else if (button.equals("Play Fair")) {
             playFairView = new PlayFairView();
             mainWindow.show(playFairView);
+            mainWindow.setjButton_PlayFair();
             System.out.println("doi panle cua play fair");
         } else if (button.equals("Substituton")) {
-            System.out.print("bạn đã ấn click 3");
+            System.out.println("doi panel cua Substituton");
+            mainWindow.setjButton_Substitution();
         } else if (button.equals("Transposition")) {
-            System.out.print("bạn đã ấn click 4");
+            System.out.println("doi panel cua Transposition");
+            mainWindow.setjButton_Transposition();
         } else if (button.equals("Vegernere")) {
-            System.out.print("bạn đã ấn click 5");
+            System.out.println("doi panel cua Vegernere");
+            mainWindow.setjButton_Vegernere();
         }
     }
 

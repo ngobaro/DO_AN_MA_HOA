@@ -10,15 +10,18 @@ import java.awt.event.ActionListener;
 
 public class MainWindow extends JFrame {
     private static MainWindow mainWindow;
-    private JToolBar jToolBar;
-    private JButton jButton_Caesar;
+    public static JToolBar jToolBar;
+
+    public JButton jButton_Caesar;
     private JButton jButton_PlayFair;
     private JButton jButton_Substitution;
     private JButton jButton_Transposition;
     private JButton jButton_Vegernere;
+
     private MainWindowAction ac;
 
     private MainWindow() {
+        this.setTitle("Công cụ mã hóa HDB");
         setSize(800, 600);
         setLayout(null);
         setLocation(400, 140);
@@ -35,6 +38,15 @@ public class MainWindow extends JFrame {
 
         jButton_Caesar.addActionListener(ac);
         jButton_PlayFair.addActionListener(ac);
+        jButton_Substitution.addActionListener(ac);
+        jButton_Transposition.addActionListener(ac);
+        jButton_Vegernere.addActionListener(ac);
+
+        jButton_Caesar.setBackground(Color.lightGray);
+        jButton_PlayFair.setBackground(Color.lightGray);
+        jButton_Substitution.setBackground(Color.lightGray);
+        jButton_Transposition.setBackground(Color.lightGray);
+        jButton_Vegernere.setBackground(Color.lightGray);
 
         jToolBar.add(jButton_Caesar);
         jToolBar.add(jButton_PlayFair);
@@ -53,9 +65,49 @@ public class MainWindow extends JFrame {
     }
 
     public void show(JPanel panel) {
-        // setContentPane(panel);
-        this.add(panel, BorderLayout.CENTER);
+        setContentPane(panel);
+
         setVisible(true);
+    }
+
+    public void setjButton_Caesar() {
+        jButton_Caesar.setBackground(Color.GREEN);
+        jButton_PlayFair.setBackground(Color.lightGray);
+        jButton_Substitution.setBackground(Color.lightGray);
+        jButton_Transposition.setBackground(Color.lightGray);
+        jButton_Vegernere.setBackground(Color.lightGray);
+    }
+
+    public void setjButton_PlayFair() {
+        jButton_Caesar.setBackground(Color.lightGray);
+        jButton_PlayFair.setBackground(Color.GREEN);
+        jButton_Substitution.setBackground(Color.lightGray);
+        jButton_Transposition.setBackground(Color.lightGray);
+        jButton_Vegernere.setBackground(Color.lightGray);
+    }
+
+    public void setjButton_Substitution() {
+        jButton_Caesar.setBackground(Color.lightGray);
+        jButton_PlayFair.setBackground(Color.lightGray);
+        jButton_Substitution.setBackground(Color.GREEN);
+        jButton_Transposition.setBackground(Color.lightGray);
+        jButton_Vegernere.setBackground(Color.lightGray);
+    }
+
+    public void setjButton_Transposition() {
+        jButton_Caesar.setBackground(Color.lightGray);
+        jButton_PlayFair.setBackground(Color.lightGray);
+        jButton_Substitution.setBackground(Color.lightGray);
+        jButton_Transposition.setBackground(Color.GREEN);
+        jButton_Vegernere.setBackground(Color.lightGray);
+    }
+
+    public void setjButton_Vegernere() {
+        jButton_Caesar.setBackground(Color.lightGray);
+        jButton_PlayFair.setBackground(Color.lightGray);
+        jButton_Substitution.setBackground(Color.lightGray);
+        jButton_Transposition.setBackground(Color.lightGray);
+        jButton_Vegernere.setBackground(Color.GREEN);
     }
 
 }

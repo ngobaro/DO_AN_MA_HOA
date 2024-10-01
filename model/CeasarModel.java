@@ -8,10 +8,11 @@ public class CeasarModel {
     private String plainText;
     private String cipherText;
     private int key;
-    //---------------------------------
+    // ---------------------------------
 
     // Thuộc Tính
-    public CeasarModel(){
+    public CeasarModel() {
+        key = 0;
     }
 
     public CeasarModel(String plainText, String cipherText, int key) {
@@ -19,8 +20,7 @@ public class CeasarModel {
         this.cipherText = cipherText;
         this.key = key;
     }
-    //---------------------------------
-
+    // ---------------------------------
 
     // hàm geter và seter
     public String getPlainText() {
@@ -46,8 +46,6 @@ public class CeasarModel {
     public void setKey(int key) {
         this.key = key;
     }
-    //---------------------------------
+    // ---------------------------------
 
-    
-    
 }
