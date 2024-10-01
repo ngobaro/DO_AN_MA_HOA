@@ -9,6 +9,7 @@ public class CeasarModel {
 
     // Thuộc Tính
     public CeasarModel(){
+        this.key =0; 
     }
 
     public CeasarModel(String plainText, String cipherText, int key) {
