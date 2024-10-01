@@ -13,13 +13,13 @@ public class WelcomeView extends JPanel {
     private JLabel jlLabel;
 
     public WelcomeView() {
-
         this.setLayout(new GridBagLayout());
         jlLabel = new JLabel("Welcome to Java");
+
         this.setLayout(new BorderLayout());
         this.add(MainWindow.jToolBar, BorderLayout.NORTH);
         this.add(jlLabel, BorderLayout.CENTER);
-
+        this.add(jlLabel);
     }
 
     public void showWelcome() {

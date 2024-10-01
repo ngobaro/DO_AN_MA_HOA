@@ -148,5 +148,4 @@ public class CeasarView extends JPanel {
     public void setjTextField_value(JTextField jTextField_value) {
         this.jTextField_value = jTextField_value;
     }
-
 }
