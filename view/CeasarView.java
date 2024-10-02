@@ -50,6 +50,7 @@ public class CeasarView extends JPanel {
         BufferedImage backgroundImage;
         try {
             backgroundImage = ImageIO.read(getClass().getResource("/view/a.jpg"));
+
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -199,5 +200,4 @@ public class CeasarView extends JPanel {
         System.out.println(ceasarModel.getKey());
 
     }
-
 }
