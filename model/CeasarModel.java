@@ -40,7 +40,13 @@ public class CeasarModel {
     }
 
     public void setKey(int key) {
-        this.key = key;
+        if (key < 0) {
+            this.key = 26 - (26 * (key / 26) - key);
+        } else if (key > 26) {
+            this.key = key % 26;
+        } else {
+            this.key = key;
+        }
     }
     // ---------------------------------
 

@@ -52,7 +52,7 @@ public class CeasarView extends JPanel {
     public CeasarView() {
         BufferedImage backgroundImage;
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/view/background_Pic.jpg"));
+            backgroundImage = ImageIO.read(getClass().getResource("/view/a.jpg"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,7 +81,6 @@ public class CeasarView extends JPanel {
         jPanel_Label_result = new JPanel();
 
         jPanel_BackGround.setLayout(new GridBagLayout());
-        
 
         jTextField_value = new JTextField(ceasarModel.getKey() + "");
         jTextField_value.setHorizontalAlignment(JTextField.CENTER);
@@ -119,13 +118,11 @@ public class CeasarView extends JPanel {
 
         jPanel_Button.setOpaque(false);
 
-       
-
         jPanel_messenger.add(jScrollPane_plain);
         jPanel_result.add(jScrollPane_cipher);
         font = new Font("Arial", Font.BOLD, 15);
         jLabel_key = new JLabel("Key");
-        jLabel_messenger = new JLabel(" Messenger");
+        jLabel_messenger = new JLabel(" Message");
         jPanel_Label_messenger.add(jLabel_messenger);
         jLabel_result = new JLabel(" Result");
         jPanel_Label_result.add(jLabel_result);
@@ -134,13 +131,13 @@ public class CeasarView extends JPanel {
         jLabel_key.setFont(font);
         jLabel_messenger.setFont(font);
         jLabel_result.setFont(font);
-       
+
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 10, 0, 10);
         gbc.gridx = 0;
         gbc.gridy = 1;
         jPanel_BackGround.add(jPanel_messenger, gbc);
-      
+
         gbc.insets = new Insets(0, 10, 0, 10);
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -157,8 +154,7 @@ public class CeasarView extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 6;
         jPanel_BackGround.add(jPanel_Button, gbc);
-        
-        
+
         gbc.insets = new Insets(5, 10, 0, 10);
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -169,7 +165,6 @@ public class CeasarView extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 2;
         jPanel_BackGround.add(jPanel_Label_result, gbc);
-
 
         jPanel.setOpaque(false);
 
@@ -199,15 +194,13 @@ public class CeasarView extends JPanel {
         this.ceasarModel.Encryption();
         this.jTextArea_cipher.setText(ceasarModel.getCipherText());
         System.out.println(ceasarModel.getKey());
-        // this.ceasarModel.setCipherText(this.jTextArea_cipher.getText());
-       
-        // System.out.println(ceasarModel.getCipherText());
     }
+
     public void decryption() {
         this.ceasarModel.setPlainText(this.jTextArea_plain.getText());
         this.ceasarModel.Decryption();
         this.jTextArea_cipher.setText(ceasarModel.getCipherText());
         System.out.println(ceasarModel.getKey());
-       
+
     }
 }
