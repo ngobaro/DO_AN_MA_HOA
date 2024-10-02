@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import controller.CeasarListener;
-import controller.CeasarListener;
 import main.MainWindow;
 import model.CeasarModel;
 
@@ -53,7 +52,8 @@ public class CeasarView extends JPanel {
     public CeasarView() {
         BufferedImage backgroundImage;
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/view/g e o r g i a n a.jpg"));
+            backgroundImage = ImageIO.read(getClass().getResource("/view/background_Pic.jpg"));
+
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -135,7 +135,6 @@ public class CeasarView extends JPanel {
         jLabel_messenger.setFont(font);
         jLabel_result.setFont(font);
        
-
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 10, 0, 10);
         gbc.gridx = 0;
@@ -211,5 +210,4 @@ public class CeasarView extends JPanel {
         System.out.println(ceasarModel.getKey());
        
     }
-    
 }
