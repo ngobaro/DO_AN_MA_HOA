@@ -22,9 +22,9 @@ public class MainWindow extends JFrame {
 
     private MainWindow() {
         this.setTitle("Công cụ mã hóa HDB");
-        setSize(800, 600);
+        setSize(1000, 700);
         setLayout(null);
-        setLocation(400, 140);
+        setLocation(300, 50);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         jToolBar = new JToolBar();

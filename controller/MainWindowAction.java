@@ -6,8 +6,12 @@ import java.awt.*;
 import javax.swing.text.PlainView;
 
 import main.MainWindow;
+import model.VegernereModel;
 import view.CeasarView;
 import view.PlayFairView;
+import view.SubstitutionView;
+import view.TranspositionView;
+import view.VegernereView;
 
 /**
  * MainWindowAction
@@ -18,6 +22,9 @@ public class MainWindowAction implements ActionListener {
     private MainWindow mainWindow;
     private CeasarView ceasarView;
     private PlayFairView playFairView;
+    private SubstitutionView substitutionView;
+    private TranspositionView transpositionView;
+    private VegernereView vegernereView;
 
     public MainWindowAction(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
@@ -37,9 +44,15 @@ public class MainWindowAction implements ActionListener {
             mainWindow.setjButton_PlayFair();
             System.out.println("doi panle cua play fair");
         } else if (button.equals("Substituton")) {
+            substitutionView = new SubstitutionView();
+            mainWindow.show(substitutionView);
+            mainWindow.setjButton_Substitution();
             System.out.println("doi panel cua Substituton");
             mainWindow.setjButton_Substitution();
         } else if (button.equals("Transposition")) {
+            transpositionView = new TranspositionView();
+            mainWindow.show(transpositionView);
+            mainWindow.setjButton_Transposition();
             System.out.println("doi panel cua Transposition");
             mainWindow.setjButton_Transposition();
         } else if (button.equals("Vegernere")) {

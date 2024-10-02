@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import controller.CeasarListener;
-import controller.CeasarListener;
 import main.MainWindow;
 import model.CeasarModel;
 
@@ -37,7 +36,6 @@ public class CeasarView extends JPanel {
     private JPanel jPanel_result;
     private JPanel jPanel_Label_messenger;
     private JPanel jPanel_Label_result;
-
     private JPanel jPanel_Button;
 
     private JButton jButton_1;
@@ -46,8 +44,6 @@ public class CeasarView extends JPanel {
     private JButton jButton_Down;
 
     private ActionListener ac;
-
-    // private
     private Font font;
 
     public CeasarView() {
@@ -85,9 +81,9 @@ public class CeasarView extends JPanel {
         jTextField_value = new JTextField(ceasarModel.getKey() + "");
         jTextField_value.setHorizontalAlignment(JTextField.CENTER);
 
-        jTextArea_plain = new JTextArea(7, 50);
+        jTextArea_plain = new JTextArea(7, 40);
         jTextArea_plain.setFont(font);
-        jTextArea_cipher = new JTextArea(7, 50);
+        jTextArea_cipher = new JTextArea(7, 40);
         jTextArea_cipher.setFont(font);
 
         jScrollPane_plain = new JScrollPane(jTextArea_plain);
