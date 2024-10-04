@@ -12,7 +12,8 @@ public class MainWindow extends JFrame {
     private static MainWindow mainWindow;
     public static JToolBar jToolBar;
 
-    public JButton jButton_Caesar;
+    private JPanel jPanel;
+    private JButton jButton_Caesar;
     private JButton jButton_PlayFair;
     private JButton jButton_Substitution;
     private JButton jButton_Transposition;
@@ -33,6 +34,8 @@ public class MainWindow extends JFrame {
         jButton_Substitution = new JButton("Substituton");
         jButton_Transposition = new JButton("Transposition");
         jButton_Vegernere = new JButton("Vegernere");
+
+        jPanel = new JPanel();
 
         ac = new MainWindowAction(this);
 
@@ -55,6 +58,7 @@ public class MainWindow extends JFrame {
         jToolBar.add(jButton_Vegernere);
         this.setLayout(new BorderLayout());
         this.add(jToolBar, BorderLayout.NORTH);
+        this.add(jPanel, BorderLayout.CENTER);
     }
 
     public static MainWindow getInstance() {
@@ -65,12 +69,15 @@ public class MainWindow extends JFrame {
     }
 
     public void show(JPanel panel) {
-        setContentPane(panel);
-
+        // setContentPane(panel);
+        this.remove(jPanel);
+        this.add(panel, BorderLayout.CENTER);
+        this.jPanel = panel;
         setVisible(true);
     }
 
     public void setjButton_Caesar() {
+
         jButton_Caesar.setBackground(Color.GREEN);
         jButton_PlayFair.setBackground(Color.lightGray);
         jButton_Substitution.setBackground(Color.lightGray);

@@ -184,7 +184,7 @@ public class SubstitutionView extends JPanel {
         jPanel_BackGround.add(jPanel_all);
 
         this.setLayout(new BorderLayout());
-        this.add(MainWindow.jToolBar, BorderLayout.NORTH);
+        // this.add(MainWindow.jToolBar, BorderLayout.NORTH);
         this.add(jPanel_BackGround, BorderLayout.CENTER);
     }
 }

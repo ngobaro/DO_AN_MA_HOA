@@ -165,7 +165,7 @@ public class TranspositionView extends JPanel {
         jPanel.setOpaque(false);
 
         this.setLayout(new BorderLayout());
-        this.add(MainWindow.jToolBar, BorderLayout.NORTH);
+        // this.add(MainWindow.jToolBar, BorderLayout.NORTH);
         this.add(jPanel_BackGround, BorderLayout.CENTER);
     }
 
