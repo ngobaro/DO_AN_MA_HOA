@@ -1,17 +1,15 @@
 package model;
 
 public class PlayFairModel {
-    //Thuộc tính
+    // Thuộc tính
     private String plainText;
     private String cipherText;
     private String key;
     private char[][] array = new char[5][5];
-    //---------------------------------
 
-    // khởi tạo
+    // Khởi tạo
     public PlayFairModel() {
-        this.key = key.toLowerCase();
-        this.plainText = plainText.toLowerCase();
+        this.cipherText = "";
     }
 
     public PlayFairModel(String plainText, String cipherText, String key, char[][] array) {
@@ -20,9 +18,8 @@ public class PlayFairModel {
         this.key = key;
         this.array = array;
     }
-    //---------------------------------
 
-    // hàm geter và seter
+    // Hàm getter và setter
     public String getPlainText() {
         return plainText;
     }
@@ -54,106 +51,148 @@ public class PlayFairModel {
     public void setArray(char[][] array) {
         this.array = array;
     }
-    //---------------------------------
 
-    public String removeSameCharacter(){
-        // tao mang ki tu ket qua de luu
-        char []result = new char[this.plainText.length()];
-
-        // tao mang boolean de danh dau ki tu da xuat hien
-        boolean[] visited = new boolean[256];
-
-        int index = 0;
-        // duyet de so lan xuat hien
-        for (int i = 0; i < this.plainText.length(); i++){
-            visited[this.plainText.charAt(i)] = true;
-        }
-        for (int i = 0; i < this.plainText.length(); i++){
-            if (visited[this.plainText.charAt(i)]){
-                result[index++] = this.plainText.charAt(i);
-                visited[this.plainText.charAt(i)] = false;
-            }
-        }
-        return new String(result);
-    }
-    
     public void generateKeyFromKey(String key) {
-        //Dùng đánh dấu các ký tự đã xuất hiện
         boolean[] visited = new boolean[26];
-
-        // Khởi tạo ma trận lưu lại khóa
         char[][] matrix = new char[5][5];
-
-        // Chỉ số để duyệt qua ma trận
         int index = 0;
 
-        // Duyệt qua từng ký tự trong khóa
         for (int i = 0; i < key.length(); i++) {
             char c = key.charAt(i);
-            // Bỏ qua chữ 'j'
-            if (c == 'j')
-                continue;
-            // Kiểm tra định dạng kí tự
-            if (c < 'a' || c > 'z')
-                break;
-            // Nếu ký tự chưa xuất hiện, đánh dấu và thêm vào ma trận
-            if (visited[c - 'a'] == false) {
+            if (c == 'j') continue;
+            if (c < 'a' || c > 'z') continue; // Bỏ qua ký tự không hợp lệ
+            if (!visited[c - 'a']) {
                 visited[c - 'a'] = true;
                 matrix[index / 5][index % 5] = c;
                 index++;
             }
         }
-        // Thêm các chữ cái còn thiếu vào ma trận
+
         char ch = 'a';
         while (index < 25) {
-            if (ch != 'j' && visited[ch - 'a'] == false) {
+            if (ch != 'j' && !visited[ch - 'a']) {
                 matrix[index / 5][index % 5] = ch;
                 index++;
             }
             ch++;
         }
-        
-        //Trả lại về vị trí 0
-        index = 0;
 
-        // Mang chứa kết quả
-        char [] result = new char[25];
-        // chuyen thanh chuoi
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                result[index++] = matrix[i][j];
-            }
-        }
-        // Lưu kết quả vào chuỗi cipher text
-       this.cipherText = new String(result);
+        this.array = matrix; // Lưu ma trận khóa vào thuộc tính array
     }
 
-    public String formatPlainText()
-    {
+    public String formatPlainText(String plain_Text) {
         String message = "";
         int plainText_Length = plainText.length();
-       
-        for (int i = 0; i < plainText_Length; i++)
-        {
-            // Nếu kí tự là j thì thay bằng kí tự i
-            if (plainText.charAt(i) == 'j')
+
+        for (int i = 0; i < plainText_Length; i++) {
+            char c = plain_Text.charAt(i);
+            if (c == 'j') {
                 message += 'i';
-            else
-                message += plainText.charAt(i); //Nếu không thì giữ nguyên và lưu vào message
+            } else if (c >= 'a' && c <= 'z') {
+                message += c;
+            }
         }
- 
-        // Nếu 2 kí tự kế bên nhau giống nhau, chèn kí tự x vào giữa
-        for (int i = 0; i < message.length(); i += 2) 
-        {
-            if (message.charAt(i) == message.charAt(i + 1))
-                message = message.substring(0, i + 1) + 'x'
-                          + message.substring(i + 1);
+
+        // Chèn 'x' vào giữa các ký tự giống nhau
+        for (int i = 0; i < message.length() - 1; i++) {
+            if (message.charAt(i) == message.charAt(i + 1)) {
+                message = message.substring(0, i + 1) + 'x' + message.substring(i + 1);
+                i++; // Bỏ qua ký tự vừa thêm
+            }
         }
-        // Nếu chuỗi lẻ thì thêm x vào cuối
-        if (plainText_Length % 2 == 1)
-            message += 'x'; // dummy character
-       
-        return message;
+
+        if (message.length() % 2 != 0) {
+            message += 'x'; // Nếu chuỗi lẻ, thêm 'x' vào cuối
+        }
+
+        return message.replaceAll("\\s", ""); // Xóa khoảng trắng
     }
-    
+
+    public int[] getCharacterPosition(char ch) {
+        int[] keyPosition = new int[2]; // Sửa kích thước thành 2
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (array[i][j] == ch) {
+                    keyPosition[0] = i;
+                    keyPosition[1] = j;
+                    return keyPosition; // Trả về ngay khi tìm thấy
+                }
+            }
+        }
+        return keyPosition; // Nếu không tìm thấy
+    }
+
+    public String Encryption() {
+        String plaintext = formatPlainText(plainText);
+
+        for (int i = 0; i < plaintext.length(); i += 2) {
+            char ch1 = plaintext.charAt(i);
+            char ch2 = (i + 1 < plaintext.length()) ? plaintext.charAt(i + 1) : 'x'; // Sử dụng 'x' nếu không có ký tự thứ hai
+
+            int[] ch1pos = getCharacterPosition(ch1);
+            int[] ch2pos = getCharacterPosition(ch2);
+
+            if (ch1pos[0] == -1 || ch2pos[0] == -1) {
+                System.out.println("Ký tự không hợp lệ trong plaintext.");
+                return ""; // Trả về chuỗi rỗng nếu có ký tự không hợp lệ
+            }
+
+            int r1 = ch1pos[0];
+            int c1 = ch1pos[1];
+            int r2 = ch2pos[0];
+            int c2 = ch2pos[1];
+
+            if (r1 == r2) { // Cùng hàng
+                c1 = (c1 - 1) % 5;
+                c2 = (c2 - 1) % 5;
+            } else if (c1 == c2) { // Cùng cột
+                r1 = (r1 - 1) % 5;
+                r2 = (r2 - 1) % 5;
+            } else { // Khác hàng, khác cột
+                int temp = c1;
+                c1 = c2;
+                c2 = temp;
+            }
+            cipherText += array[r1][c1]; // Thêm kết quả vào chuỗi
+            cipherText += array[r2][c2];
+        }
+        return cipherText; // Trả về chuỗi kết quả
+    }
+
+    public String Decryption() {
+        String plaintext = formatPlainText(plainText);
+
+        for (int i = 0; i < plaintext.length(); i += 2) {
+            char ch1 = plaintext.charAt(i);
+            char ch2 = (i + 1 < plaintext.length()) ? plaintext.charAt(i + 1) : 'x'; // Sử dụng 'x' nếu không có ký tự thứ hai
+
+            int[] ch1pos = getCharacterPosition(ch1);
+            int[] ch2pos = getCharacterPosition(ch2);
+
+            if (ch1pos[0] == -1 || ch2pos[0] == -1) {
+                System.out.println("Ký tự không hợp lệ trong plaintext.");
+                return ""; // Trả về chuỗi rỗng nếu có ký tự không hợp lệ
+            }
+
+            int r1 = ch1pos[0];
+            int c1 = ch1pos[1];
+            int r2 = ch2pos[0];
+            int c2 = ch2pos[1];
+
+            if (r1 == r2) { // Cùng hàng
+                c1 = (c1 + 1) % 5;
+                c2 = (c2 + 1) % 5;
+            } else if (c1 == c2) { // Cùng cột
+                r1 = (r1 + 1) % 5;
+                r2 = (r2 + 1) % 5;
+            } else { // Khác hàng, khác cột
+                int temp = c1;
+                c1 = c2;
+                c2 = temp;
+            }
+            cipherText += array[r1][c1]; // Thêm kết quả vào chuỗi
+            cipherText += array[r2][c2];
+        }
+        return cipherText; // Trả về chuỗi kết quả
+    }
 }
