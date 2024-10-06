@@ -1,14 +1,10 @@
 package view;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import controller.CeasarListener;
-import main.MainWindow;
 import model.CeasarModel;
 
 /**
@@ -43,7 +39,6 @@ public class TranspositionView extends JPanel {
     private JButton jButton_Up;
     private JButton jButton_Down;
 
-    // private ActionListener ac;
     private Font font;
 
     public TranspositionView() {
@@ -165,7 +160,6 @@ public class TranspositionView extends JPanel {
         jPanel.setOpaque(false);
 
         this.setLayout(new BorderLayout());
-        // this.add(MainWindow.jToolBar, BorderLayout.NORTH);
         this.add(jPanel_BackGround, BorderLayout.CENTER);
     }
 

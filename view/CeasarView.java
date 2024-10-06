@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import controller.CeasarListener;
-import main.MainWindow;
 import model.CeasarModel;
 
 /**

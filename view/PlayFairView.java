@@ -2,8 +2,13 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
-import main.MainWindow;
+
+import controller.PlayFairListener;
+import model.PlayFairModel;
+
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
@@ -13,6 +18,7 @@ import javax.imageio.ImageIO;
  */
 public class PlayFairView extends JPanel {
     private Font font;
+    private PlayFairModel playFairModel;
     private GridBagConstraints gbc;
 
     private JTextArea jTextArea_plain;
@@ -47,6 +53,8 @@ public class PlayFairView extends JPanel {
     private JButton jButton_encryption;
     private JButton jButton_decryption;
 
+    private ActionListener ac;
+
     public PlayFairView() {
         BufferedImage backgroundImage;
         try {
@@ -66,6 +74,9 @@ public class PlayFairView extends JPanel {
                 g.drawImage(scaledImage, 0, 0, null);
             }
         };
+
+        ac = new PlayFairListener(this);
+        playFairModel = new PlayFairModel();
         jPanel_BackGround.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         jLabel_plain = new JLabel("Message");
@@ -111,8 +122,11 @@ public class PlayFairView extends JPanel {
         jPanel_all.setOpaque(false);
 
         jButton_gennerate = new JButton("Generate");
-        jButton_encryption = new JButton("encryption");
-        jButton_decryption = new JButton("decryption");
+        jButton_gennerate.addActionListener(ac);
+        jButton_encryption = new JButton("Encryption");
+        jButton_encryption.addActionListener(ac);
+        jButton_decryption = new JButton("Decryption");
+        jButton_decryption.addActionListener(ac);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -139,8 +153,6 @@ public class PlayFairView extends JPanel {
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.WEST;
         jPanel_left.add(jPanel_jLabel_cipher, gbc);
-
-        // jPanel_BackGround.add(jPanel_left);
 
         // ----------------------------------
         gbc.gridx = 0;
@@ -187,8 +199,28 @@ public class PlayFairView extends JPanel {
         jPanel_BackGround.add(jPanel_all);
 
         this.setLayout(new BorderLayout());
-        // this.add(MainWindow.jToolBar, BorderLayout.NORTH);
         this.add(jPanel_BackGround, BorderLayout.CENTER);
+    }
+
+    public void createKey() {
+        playFairModel.generateKeyFromKey(this.key.getText());
+        this.jTextField_alphabet.setText(playFairModel.generateKeyFromKey(this.key.getText()));
+
+    }
+
+    public void decryption() {
+
+        playFairModel.Decryption();
+
+    }
+
+    public void encryption() {
+        playFairModel.setPlainText(this.jTextArea_plain.getText());
+        System.out.println(playFairModel.getPlainText());
+        playFairModel.Encryption();
+
+        System.out.println(playFairModel.getCipherText());
+        // this.jTextArea_cipher.setText(playFairModel.getCipherText());
     }
 
 }

@@ -2,16 +2,12 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.*;
-import javax.swing.text.PlainView;
 
 import main.MainWindow;
-import model.VegernereModel;
 import view.CeasarView;
 import view.PlayFairView;
 import view.SubstitutionView;
 import view.TranspositionView;
-import view.VegernereView;
 
 /**
  * MainWindowAction
@@ -24,7 +20,6 @@ public class MainWindowAction implements ActionListener {
     private PlayFairView playFairView;
     private SubstitutionView substitutionView;
     private TranspositionView transpositionView;
-    private VegernereView vegernereView;
 
     public MainWindowAction(MainWindow mainWindow) {
         this.mainWindow = mainWindow;

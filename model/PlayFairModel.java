@@ -52,32 +52,39 @@ public class PlayFairModel {
         this.array = array;
     }
 
-    public void generateKeyFromKey(String key) {
+    public String generateKeyFromKey(String key) {
         boolean[] visited = new boolean[26];
+        String result = "";
         char[][] matrix = new char[5][5];
         int index = 0;
 
         for (int i = 0; i < key.length(); i++) {
             char c = key.charAt(i);
-            if (c == 'j') continue;
-            if (c < 'a' || c > 'z') continue; // Bỏ qua ký tự không hợp lệ
+            if (c == 'j')
+                continue;
+            if (c < 'a' || c > 'z')
+                continue; // Bỏ qua ký tự không hợp lệ
             if (!visited[c - 'a']) {
                 visited[c - 'a'] = true;
                 matrix[index / 5][index % 5] = c;
                 index++;
             }
         }
-
         char ch = 'a';
         while (index < 25) {
             if (ch != 'j' && !visited[ch - 'a']) {
                 matrix[index / 5][index % 5] = ch;
+
                 index++;
             }
             ch++;
         }
-
-        this.array = matrix; // Lưu ma trận khóa vào thuộc tính array
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                result += matrix[i][j] + "";
+            }
+        }
+        return result; // Lưu ma trận khóa vào thuộc tính array
     }
 
     public String formatPlainText(String plain_Text) {
@@ -127,43 +134,11 @@ public class PlayFairModel {
 
         for (int i = 0; i < plaintext.length(); i += 2) {
             char ch1 = plaintext.charAt(i);
-            char ch2 = plaintext.charAt(i + 1); // Sử dụng 'x' nếu không có ký tự thứ hai
+            char ch2 = plaintext.charAt(i + 1); // Sử dụng 'x' nếu không có ký tự
+                                                // thứ hai
 
             int[] ch1pos = getCharacterPosition(ch1);
             int[] ch2pos = getCharacterPosition(ch2);
-
-
-            int r1 = ch1pos[0];
-            int c1 = ch1pos[1];
-            int r2 = ch2pos[0];
-            int c2 = ch2pos[1];
-
-            if (r1 == r2) { // Cùng hàng
-                c1 = (c1 + 1) % 5;
-                c2 = (c2 + 1) % 5;
-            } else if (c1 == c2) { // Cùng cột
-                r1 = (r1 + 1) % 5;
-                r2 = (r2 + 1) % 5;
-            } else { // Khác hàng, khác cột
-                int temp = c1;
-                c1 = c2;
-                c2 = temp;
-            }
-            cipherText += array[r1][c1]; // Thêm kết quả vào chuỗi
-            cipherText += array[r2][c2];
-        }
-    }
-
-    public void Dencryption() {
-        String plaintext = formatPlainText(plainText);
-
-        for (int i = 0; i < plaintext.length(); i += 2) {
-            char ch1 = plaintext.charAt(i);
-            char ch2 = plaintext.charAt(i + 1); // Sử dụng 'x' nếu không có ký tự thứ hai
-
-            int[] ch1pos = getCharacterPosition(ch1);
-            int[] ch2pos = getCharacterPosition(ch2);
-
 
             int r1 = ch1pos[0];
             int c1 = ch1pos[1];
@@ -184,5 +159,43 @@ public class PlayFairModel {
             cipherText += array[r1][c1]; // Thêm kết quả vào chuỗi
             cipherText += array[r2][c2];
         }
+    }
+
+    public String Decryption() {
+        String plaintext = formatPlainText(plainText);
+
+        for (int i = 0; i < plaintext.length(); i += 2) {
+            char ch1 = plaintext.charAt(i);
+            char ch2 = (i + 1 < plaintext.length()) ? plaintext.charAt(i + 1) : 'x'; // Sử dụng 'x' nếu không có ký tự
+                                                                                     // thứ hai
+
+            int[] ch1pos = getCharacterPosition(ch1);
+            int[] ch2pos = getCharacterPosition(ch2);
+
+            if (ch1pos[0] == -1 || ch2pos[0] == -1) {
+                System.out.println("Ký tự không hợp lệ trong plaintext.");
+                return ""; // Trả về chuỗi rỗng nếu có ký tự không hợp lệ
+            }
+
+            int r1 = ch1pos[0];
+            int c1 = ch1pos[1];
+            int r2 = ch2pos[0];
+            int c2 = ch2pos[1];
+
+            if (r1 == r2) { // Cùng hàng
+                c1 = (c1 + 1) % 5;
+                c2 = (c2 + 1) % 5;
+            } else if (c1 == c2) { // Cùng cột
+                r1 = (r1 + 1) % 5;
+                r2 = (r2 + 1) % 5;
+            } else { // Khác hàng, khác cột
+                int temp = c1;
+                c1 = c2;
+                c2 = temp;
+            }
+            cipherText += array[r1][c1]; // Thêm kết quả vào chuỗi
+            cipherText += array[r2][c2];
+        }
+        return cipherText; // Trả về chuỗi kết quả
     }
 }

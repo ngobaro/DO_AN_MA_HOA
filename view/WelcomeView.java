@@ -18,6 +18,7 @@ public class WelcomeView extends JPanel {
     private Font font;
 
     public WelcomeView() {
+        // lấy tấm ảnh ở địa chỉ "/view/a.jpg"
         BufferedImage backgroundImage;
         try {
             backgroundImage = ImageIO.read(getClass().getResource("/view/a.jpg"));
@@ -45,7 +46,6 @@ public class WelcomeView extends JPanel {
         jPanel_BackGround.add(jlLabel);
 
         this.setLayout(new BorderLayout());
-        // this.add(MainWindow.jToolBar, BorderLayout.NORTH);
         this.add(jPanel_BackGround, BorderLayout.CENTER);
 
     }

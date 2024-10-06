@@ -2,7 +2,6 @@ package view;
 
 import java.awt.*;
 import javax.swing.*;
-import main.MainWindow;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
@@ -136,8 +135,6 @@ public class SubstitutionView extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         jPanel_left.add(jPanel_jLabel_cipher, gbc);
 
-        // jPanel_BackGround.add(jPanel_left);
-
         // ----------------------------------
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -184,7 +181,6 @@ public class SubstitutionView extends JPanel {
         jPanel_BackGround.add(jPanel_all);
 
         this.setLayout(new BorderLayout());
-        // this.add(MainWindow.jToolBar, BorderLayout.NORTH);
         this.add(jPanel_BackGround, BorderLayout.CENTER);
     }
 }
