@@ -22,6 +22,7 @@ public class PlayFairListener implements ActionListener {
             playFairView.encryption();
         } else if (src.equals("Decryption")) {
             playFairView.createKey();
+            playFairView.decryption();
         }
     }
 

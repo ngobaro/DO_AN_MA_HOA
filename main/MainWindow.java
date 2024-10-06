@@ -3,6 +3,7 @@ package main;
 import javax.swing.*;
 import controller.MainWindowAction;
 import java.awt.*;
+import java.net.URL;
 
 public class MainWindow extends JFrame {
 
@@ -27,12 +28,15 @@ public class MainWindow extends JFrame {
     private MainWindowAction ac;
 
     private MainWindow() {
+        URL urlIconNotepad = MainWindow.class.getResource("DCWIZARD.png");
+        Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);
+        this.setIconImage(img);
         // đặt tên cho tựa đề
         this.setTitle("Công cụ mã hóa HDB");
         // chỉnh kích thước
-        this.setSize(1000, 700);
+        this.setSize(1100, 700);
         // cho khung Jfram xuất hiện tại vị trí trên màn hình
-        this.setLocation(300, 50);
+        this.setLocation(250, 50);
         // tắt khung sẽ dừng chương trình
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
