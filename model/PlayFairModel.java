@@ -149,12 +149,12 @@ public class PlayFairModel {
                 c1 = c2;
                 c2 = temp;
             }
-            cipherText += array[r1][c1]; // Thêm kết quả vào chuỗi
-            cipherText += array[r2][c2];
+            // cipherText += array[r1][c1]; // Thêm kết quả vào chuỗi
+            // cipherText += array[r2][c2];
         }
     }
 
-    public void Dencryption() {
+    public void Decryption() {
         String plaintext = formatPlainText(plainText);
 
         for (int i = 0; i < plaintext.length(); i += 2) {
