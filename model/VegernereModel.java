@@ -49,6 +49,21 @@ public class VegernereModel {
 		return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
 	}
 
+    public String generateKey() {
+		String result = "";
+		int j=0;
+		for(int i = 0; i<plainText.length(); i++) {
+			if(plainText.charAt(i) == ' ') {
+				result += " ";
+			}else result += key.charAt(j++);
+			
+			if(j == key.length()) {
+				j = 0;
+			}
+		}
+		return result;
+	}
+
 	public void Encryption() {
 		for(int i = 0, j = 0; i < plainText.length(); i++) {
 			char ch = plainText.charAt(i);
