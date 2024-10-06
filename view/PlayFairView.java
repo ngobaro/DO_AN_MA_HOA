@@ -77,6 +77,7 @@ public class PlayFairView extends JPanel {
 
         ac = new PlayFairListener(this);
         playFairModel = new PlayFairModel();
+        font = new Font("Arial", Font.BOLD, 15);
         jPanel_BackGround.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         jLabel_plain = new JLabel("Message");
@@ -85,10 +86,14 @@ public class PlayFairView extends JPanel {
         jLabel_generate_key = new JLabel("Generate Key");
 
         jTextArea_plain = new JTextArea(7, 40);
+        jTextArea_plain.setFont(font);
         jTextArea_cipher = new JTextArea(7, 40);
+        jTextArea_cipher.setFont(font);
 
-        key = new JTextField(26);
-        jTextField_alphabet = new JTextField(26);
+        key = new JTextField(20);
+        key.setFont(font);
+        jTextField_alphabet = new JTextField(20);
+        jTextField_alphabet.setFont(font);
 
         jScrollPane_plain = new JScrollPane(jTextArea_plain);
         jScrollPane_cipher = new JScrollPane(jTextArea_cipher);
@@ -209,18 +214,17 @@ public class PlayFairView extends JPanel {
     }
 
     public void decryption() {
-
-        playFairModel.Decryption();
-
+        playFairModel.setPlainText(this.jTextArea_plain.getText());
+        playFairModel.decryption();
+        this.jTextArea_cipher.setText(playFairModel.getCipherText());
+        playFairModel.resetCipherText();
     }
 
     public void encryption() {
         playFairModel.setPlainText(this.jTextArea_plain.getText());
-        System.out.println(playFairModel.getPlainText());
-        playFairModel.Encryption();
-
-        System.out.println(playFairModel.getCipherText());
-        // this.jTextArea_cipher.setText(playFairModel.getCipherText());
+        playFairModel.encryption();
+        this.jTextArea_cipher.setText(playFairModel.getCipherText());
+        playFairModel.resetCipherText();
     }
 
 }

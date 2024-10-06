@@ -1,10 +1,10 @@
 package model;
 
 public class PlayFairModel {
-    // Thuộc tính
     private String plainText;
     private String cipherText;
     private String key;
+    private String generateKey;
     private char[][] array = new char[5][5];
 
     // Khởi tạo
@@ -52,9 +52,10 @@ public class PlayFairModel {
         this.array = array;
     }
 
-    public void generateKeyFromKey(String key) {
+    public String generateKeyFromKey(String key) {
         boolean[] visited = new boolean[26];
         char[][] matrix = new char[5][5];
+        String result = "";
         int index = 0;
 
         for (int i = 0; i < key.length(); i++) {
@@ -78,6 +79,12 @@ public class PlayFairModel {
         }
 
         this.array = matrix; // Lưu ma trận khóa vào thuộc tính array
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                result += matrix[i][j] + "";
+            }
+        }
+        return result; // Lưu ma trận khóa vào thuộc tính array
     }
 
     public String formatPlainText(String plain_Text) {
@@ -122,7 +129,7 @@ public class PlayFairModel {
         return keyPosition; // Nếu không tìm thấy
     }
 
-    public void Encryption() {
+    public void encryption() {
         String plaintext = formatPlainText(plainText);
 
         for (int i = 0; i < plaintext.length(); i += 2) {
@@ -176,6 +183,11 @@ public class PlayFairModel {
             } else if (c1 == c2) { // Cùng cột
                 r1 = (r1 - 1) % 5;
                 r2 = (r2 - 1) % 5;
+                c1 = (c1 + 1) % 5;
+                c2 = (c2 + 1) % 5;
+            } else if (c1 == c2) { // Cùng cột
+                r1 = (r1 + 1) % 5;
+                r2 = (r2 + 1) % 5;
             } else { // Khác hàng, khác cột
                 int temp = c1;
                 c1 = c2;
@@ -184,5 +196,40 @@ public class PlayFairModel {
             cipherText += array[r1][c1]; // Thêm kết quả vào chuỗi
             cipherText += array[r2][c2];
         }
+        System.out.println("Cipher Text luc nay: " + cipherText);
+    }
+
+    public void decryption() {
+        String plaintext = formatPlainText(plainText);
+
+        for (int i = 0; i < plaintext.length(); i += 2) {
+            char ch1 = plaintext.charAt(i);
+            char ch2 = plaintext.charAt(i + 1); // Sử dụng 'x' nếu không có ký tự thứ hai
+
+            int[] ch1pos = getCharacterPosition(ch1);
+            int[] ch2pos = getCharacterPosition(ch2);
+
+            int r1 = ch1pos[0];
+            int c1 = ch1pos[1];
+            int r2 = ch2pos[0];
+            int c2 = ch2pos[1];
+
+            if (r1 == r2) { // Cùng hàng
+                c1 = (c1 - 1 + 5) % 5;
+                c2 = (c2 - 1 + 5) % 5;
+            } else if (c1 == c2) { // Cùng cột
+                r1 = (r1 - 1 + 5) % 5;
+                r2 = (r2 - 1 + 5) % 5;
+            } else { // Khác hàng, khác cột
+                int temp = c1;
+                c1 = c2;
+                c2 = temp;
+            }
+            cipherText += array[r1][c1]; // Thêm kết quả vào chuỗi
+            cipherText += array[r2][c2];
+        }
+    }
+    public void resetCipherText() {
+        this.setCipherText("");
     }
 }
