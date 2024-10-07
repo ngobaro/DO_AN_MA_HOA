@@ -8,6 +8,7 @@ import view.CeasarView;
 import view.PlayFairView;
 import view.SubstitutionView;
 import view.TranspositionView;
+import view.VegernereView;
 
 /**
  * MainWindowAction
@@ -20,6 +21,7 @@ public class MainWindowAction implements ActionListener {
     private PlayFairView playFairView;
     private SubstitutionView substitutionView;
     private TranspositionView transpositionView;
+    private VegernereView vegernereView;
 
     public MainWindowAction(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
@@ -51,6 +53,8 @@ public class MainWindowAction implements ActionListener {
             System.out.println("doi panel cua Transposition");
             mainWindow.setjButton_Transposition();
         } else if (button.equals("Vegernere")) {
+            vegernereView = new VegernereView();
+            mainWindow.show(vegernereView);
             System.out.println("doi panel cua Vegernere");
             mainWindow.setjButton_Vegernere();
         }
