@@ -25,7 +25,7 @@ public class PlayFairModel {
     }
 
     public void setPlainText(String plainText) {
-        this.plainText = plainText;
+        this.plainText = plainText.replaceAll("//s", "");
     }
 
     public String getCipherText() {

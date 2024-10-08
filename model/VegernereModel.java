@@ -41,7 +41,7 @@ public class VegernereModel {
 	}
 
 	public void setKey(String key) {
-		this.key = key;
+		this.key = key.replaceAll("\\s+", "");
 	}
 	// ---------------------------------
 
@@ -49,34 +49,43 @@ public class VegernereModel {
 		return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
 	}
 
+	public String formatPlainText() {
+		plainText = plainText.replaceAll("\\s", "");
+
+		return plainText;
+	}
+
 	public String generateKey() {
 		String result = "";
 		int j = 0;
-		for (int i = 0; i < plainText.length(); i++) {
-			if (plainText.charAt(i) == ' ') {
-				result += " ";
-			} else
-				result += key.charAt(j++);
-
-			if (j == key.length()) {
-				j = 0;
+		
+		// Chuyển plainText thành dạng không có khoảng trắng
+		String formattedPlainText = formatPlainText();
+	
+		for (int i = 0; i < formattedPlainText.length(); i++) {
+			if (formattedPlainText.charAt(i) == ' ') {
+				result += " "; // Giữ lại khoảng trắng (nếu cần, nhưng trong trường hợp này sẽ không có khoảng trắng)
+			} else {
+				result += key.charAt(j % key.length());
+				j++; // Tăng chỉ số khóa
 			}
 		}
-		return result;
+
+		result = result.replaceAll("\\s", "");
+
+		return result; // Trả về khóa đã được tạo
 	}
 
 	public void encryption() {
-		for (int i = 0, j = 0; i < plainText.length(); i++) {
-			char ch = plainText.charAt(i);
+		resetCipherText();
+		String plain_Text = formatPlainText().toUpperCase();
+		String formatKey = generateKey().toUpperCase();
+		for (int i = 0, j = 0; i < plain_Text.length(); i++) {
+			char ch = plain_Text.charAt(i);
 
 			if (isAlphabetic(ch)) {
 				// Tính giá trị dịch chuyển (shift)
-				int temp = key.charAt(j % key.length()) - 'A';
-
-				// Nếu là ký tự thường, chuyển thành chữ hoa
-				if (ch >= 'a' && ch <= 'z') {
-					ch = (char) (ch - 'a' + 'A'); // Chuyển chữ thường thành chữ hoa
-				}
+				int temp = formatKey.charAt(j % formatKey.length()) - 'A';
 
 				// Áp dụng công thức mã hóa (encryption)
 				char encryptedCh = (char) ((ch + temp - 'A') % 26 + 'A');
@@ -90,17 +99,15 @@ public class VegernereModel {
 	}
 
 	public void decryption() {
-		for (int i = 0, j = 0; i < plainText.length(); i++) {
-			char ch = plainText.charAt(i);
+		resetCipherText();
+		String plain_Text = formatPlainText().toUpperCase();
+		String formatKey = generateKey().toUpperCase();
+		for (int i = 0, j = 0; i < plain_Text.length(); i++) {
+			char ch = plain_Text.charAt(i);
 
 			if (isAlphabetic(ch)) {
 				// Tính giá trị dịch chuyển (shift)
-				int temp = key.charAt(j % key.length()) - 'A';
-
-				// Nếu là ký tự thường, chuyển thành chữ hoa
-				if (ch >= 'a' && ch <= 'z') {
-					ch = (char) (ch - 'a' + 'A'); // Chuyển chữ thường thành chữ hoa
-				}
+				int temp = formatKey.charAt(j % formatKey.length()) - 'A';
 
 				// Áp dụng công thức giải mã (decryption)
 				char decryptedCh = (char) ((ch - temp - 'A' + 26) % 26 + 'A');

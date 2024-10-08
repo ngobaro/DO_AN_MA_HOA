@@ -90,9 +90,10 @@ public class PlayFairView extends JPanel {
         jTextArea_cipher = new JTextArea(7, 40);
         jTextArea_cipher.setFont(font);
 
-        key = new JTextField(20);
+        font = new Font("Arial", Font.BOLD, 25);
+        key = new JTextField(16);
         key.setFont(font);
-        jTextField_alphabet = new JTextField(20);
+        jTextField_alphabet = new JTextField(16);
         jTextField_alphabet.setFont(font);
 
         jScrollPane_plain = new JScrollPane(jTextArea_plain);
