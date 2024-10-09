@@ -21,7 +21,7 @@ public class MainWindow extends JFrame {
     private JButton jButton_Caesar;
     private JButton jButton_PlayFair;
     private JButton jButton_Substitution;
-    private JButton jButton_Transposition;
+    private JButton jButton_SingleLetterSubstitution;
     private JButton jButton_Vegernere;
 
     // hành động để tương tác
@@ -44,9 +44,9 @@ public class MainWindow extends JFrame {
         jToolBar = new JToolBar();
         jButton_Caesar = new JButton("Ceasar");
         jButton_PlayFair = new JButton("Play Fair");
-        jButton_Substitution = new JButton("Substituton");
-        jButton_Transposition = new JButton("Transposition");
-        jButton_Vegernere = new JButton("Vegernere");
+        jButton_Substitution = new JButton("SingleLetterSubstitution");
+        jButton_SingleLetterSubstitution = new JButton("Transposition");
+        jButton_Vegernere = new JButton("Veginere");
 
         // khởi tạo jpanel
         jPanel = new JPanel();
@@ -58,27 +58,27 @@ public class MainWindow extends JFrame {
         jButton_Caesar.addActionListener(ac);
         jButton_PlayFair.addActionListener(ac);
         jButton_Substitution.addActionListener(ac);
-        jButton_Transposition.addActionListener(ac);
+        jButton_SingleLetterSubstitution.addActionListener(ac);
         jButton_Vegernere.addActionListener(ac);
 
         // chỉnh màu cho các nút ấn
         jButton_Caesar.setBackground(Color.lightGray);
         jButton_PlayFair.setBackground(Color.lightGray);
         jButton_Substitution.setBackground(Color.lightGray);
-        jButton_Transposition.setBackground(Color.lightGray);
+        jButton_SingleLetterSubstitution.setBackground(Color.lightGray);
         jButton_Vegernere.setBackground(Color.lightGray);
 
         // thêm các button vào thanh công cụ
         jToolBar.add(jButton_Caesar);
         jToolBar.add(jButton_PlayFair);
         jToolBar.add(jButton_Substitution);
-        jToolBar.add(jButton_Transposition);
+        jToolBar.add(jButton_SingleLetterSubstitution);
         jToolBar.add(jButton_Vegernere);
         // chỉnh layout theo kiểu đông tây nam bắc chính giữa
         this.setLayout(new BorderLayout());
         // bỏ thanh cụ ở phía bắc
         this.add(jToolBar, BorderLayout.NORTH);
-        // bỏ pảel
+        // bỏ panel trống vào trong center
         this.add(jPanel, BorderLayout.CENTER);
     }
 
@@ -99,12 +99,12 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
-    // nút nào được nhấn thì set lại màu cho nút đó
+    // nút nào được nhấn thì set lại màu cho nút(jbutton) đó
     public void setjButton_Caesar() {
         jButton_Caesar.setBackground(Color.GREEN);
         jButton_PlayFair.setBackground(Color.lightGray);
         jButton_Substitution.setBackground(Color.lightGray);
-        jButton_Transposition.setBackground(Color.lightGray);
+        jButton_SingleLetterSubstitution.setBackground(Color.lightGray);
         jButton_Vegernere.setBackground(Color.lightGray);
     }
 
@@ -112,7 +112,7 @@ public class MainWindow extends JFrame {
         jButton_Caesar.setBackground(Color.lightGray);
         jButton_PlayFair.setBackground(Color.GREEN);
         jButton_Substitution.setBackground(Color.lightGray);
-        jButton_Transposition.setBackground(Color.lightGray);
+        jButton_SingleLetterSubstitution.setBackground(Color.lightGray);
         jButton_Vegernere.setBackground(Color.lightGray);
     }
 
@@ -120,15 +120,15 @@ public class MainWindow extends JFrame {
         jButton_Caesar.setBackground(Color.lightGray);
         jButton_PlayFair.setBackground(Color.lightGray);
         jButton_Substitution.setBackground(Color.GREEN);
-        jButton_Transposition.setBackground(Color.lightGray);
+        jButton_SingleLetterSubstitution.setBackground(Color.lightGray);
         jButton_Vegernere.setBackground(Color.lightGray);
     }
 
-    public void setjButton_Transposition() {
+    public void setjButton_SingleLetterSubstitution() {
         jButton_Caesar.setBackground(Color.lightGray);
         jButton_PlayFair.setBackground(Color.lightGray);
         jButton_Substitution.setBackground(Color.lightGray);
-        jButton_Transposition.setBackground(Color.GREEN);
+        jButton_SingleLetterSubstitution.setBackground(Color.GREEN);
         jButton_Vegernere.setBackground(Color.lightGray);
     }
 
@@ -136,7 +136,7 @@ public class MainWindow extends JFrame {
         jButton_Caesar.setBackground(Color.lightGray);
         jButton_PlayFair.setBackground(Color.lightGray);
         jButton_Substitution.setBackground(Color.lightGray);
-        jButton_Transposition.setBackground(Color.lightGray);
+        jButton_SingleLetterSubstitution.setBackground(Color.lightGray);
         jButton_Vegernere.setBackground(Color.GREEN);
     }
 

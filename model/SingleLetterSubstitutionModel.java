@@ -1,23 +1,24 @@
 package model;
+
 import java.util.Random;
 
-public class SingleLetterCodeTableModel {
+public class SingleLetterSubstitutionModel {
     private String key;
     private String plainText;
     private String cipherText;
 
     // Constructor
-    public SingleLetterCodeTableModel() {
+    public SingleLetterSubstitutionModel() {
         cipherText = "";
     }
 
-    public SingleLetterCodeTableModel(String plainText, String cipherText, String key) {
+    public SingleLetterSubstitutionModel(String plainText, String cipherText, String key) {
         this.plainText = plainText;
         this.cipherText = cipherText;
         this.key = key;
     }
-    
-    // Hàm getter và setter 
+
+    // Hàm getter và setter
     public String getPlaintext() {
         return plainText;
     }
@@ -43,7 +44,7 @@ public class SingleLetterCodeTableModel {
     }
 
     // Hàm tạo ra random key
-    public static String generateRandomKey() {
+    public void generateRandomKey() {
         char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         Random random = new Random();
 
@@ -55,7 +56,7 @@ public class SingleLetterCodeTableModel {
             alphabet[j] = temp;
         }
 
-        return new String(alphabet); // Trả về key vừa được random
+        key = new String(alphabet); // Trả về key vừa được random
     }
 
     // Hàm mã hóa
@@ -66,8 +67,8 @@ public class SingleLetterCodeTableModel {
 
             // Kiểm tra xem ch có phải là ký tự chữ hoa hay không (A-Z)
             if (ch >= 'A' && ch <= 'Z') {
-                int index = ch - 'A'; 
-                
+                int index = ch - 'A';
+
                 if (index < key.length()) {
                     cipherText += key.charAt(index); // Thêm ký tự tương ứng từ key
                 }
@@ -94,4 +95,38 @@ public class SingleLetterCodeTableModel {
     public void resetCipherText() {
         this.setCiphertext("");
     }
+
+    public boolean duplicateKey(String test) {
+        // Kiểm tra chiều dài của key có đúng 26 hay không
+        if (test.length() != 26) {
+            System.out.println("khong du do dai");
+            return false; // Nếu không đúng 26 ký tự, trả về false
+        }
+
+        // Tạo một mảng boolean để theo dõi các ký tự đã thấy
+        boolean[] seenCharacters = new boolean[26];
+
+        // Duyệt qua từng ký tự trong key
+        for (char c : test.toCharArray()) {
+            // Chuyển đổi ký tự thành chỉ mục (a=0, b=1, ..., z=25)
+            int index = c - 'A';
+
+            // Kiểm tra xem ký tự có nằm trong khoảng 'a' đến 'z' không
+            if (index < 0 || index >= 26) {
+                return false; // Nếu ký tự không hợp lệ, trả về false
+            }
+
+            // Kiểm tra xem ký tự đã xuất hiện chưa
+            if (seenCharacters[index]) {
+                return false; // Ký tự trùng lặp, trả về false
+            }
+
+            // Đánh dấu ký tự đã thấy
+            seenCharacters[index] = true;
+        }
+
+        // Nếu không có ký tự trùng lặp và chiều dài là 26, trả về true
+        return true;
+    }
+
 }

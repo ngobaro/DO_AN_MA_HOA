@@ -21,7 +21,7 @@ public class WelcomeView extends JPanel {
         // lấy tấm ảnh ở địa chỉ "/view/a.jpg"
         BufferedImage backgroundImage;
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/view/a.jpg"));
+            backgroundImage = ImageIO.read(getClass().getResource("/view/WelcomeBackground.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -41,7 +41,7 @@ public class WelcomeView extends JPanel {
         this.setLayout(new GridBagLayout());
 
         font = new Font("Arial", Font.BOLD, 50);
-        jlLabel = new JLabel("Công cụ mã hóa");
+        jlLabel = new JLabel("CÔNG CỤ MÃ HÓA");
         jlLabel.setFont(font);
         jPanel_BackGround.add(jlLabel);
 

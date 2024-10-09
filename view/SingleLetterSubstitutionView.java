@@ -1,4 +1,3 @@
-
 package view;
 
 import java.awt.*;
@@ -6,19 +5,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import controller.VegernereListener;
-import model.VeginereModel;
+import controller.SingleLetterSubstitutionListener;
+import model.SingleLetterSubstitutionModel;
 
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-/**
- * PlayFairView
- */
-public class VegernereView extends JPanel {
+public class SingleLetterSubstitutionView extends JPanel {
+    // khai báo các thuộc tính
     private Font font;
-    private VeginereModel vegernereModel;
+    private SingleLetterSubstitutionModel singleLetterSubstitutionModel;
     private GridBagConstraints gbc;
 
     private JTextArea jTextArea_plain;
@@ -27,7 +24,6 @@ public class VegernereView extends JPanel {
     private JLabel jLabel_plain;
     private JLabel jLabel_cipher;
     private JLabel jLabel_key;
-    private JLabel jLabel_generate_key;
 
     private JPanel jPanel_BackGround;
     private JPanel jPanel_Text_plain;
@@ -47,53 +43,58 @@ public class VegernereView extends JPanel {
     private JScrollPane jScrollPane_cipher;
 
     private JTextField key;
-    private JTextField jTextField_alphabet;
+    // private JTextField jTextField_alphabet;
 
-    private JButton jButton_gennerate;
+    private JButton jButton_random;
     private JButton jButton_encryption;
     private JButton jButton_decryption;
 
     private ActionListener ac;
+    // -------------------------------------------
 
-    public VegernereView() {
-        BufferedImage backgroundImage;
+    // khởi tạo panel PlayFairView
+    public SingleLetterSubstitutionView() {
+        // tạo background
+        BufferedImage backgroundImage;// backgroundImage để lưu lại hình ảnh
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/view/bg1.jpg"));
-        } catch (IOException e) {
+            backgroundImage = ImageIO.read(getClass().getResource("/view/SingleLetterSubstitutionBackGround.jpg"));// đọc hình ảnh và tệp
+
+        }
+        // nếu đọc ảnh có lỗi thì ném ra IOException lúc này lỗi in ra và kết thúc
+        // chương trình và return
+        catch (IOException e) {
             e.printStackTrace();
             return;
         }
 
         // Tạo một JPanel để chứa ảnh background
         jPanel_BackGround = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
+            @Override // ghi đè vẽ lại panel
+            protected void paintComponent(Graphics g) { // vẽ lại dựa trên Graphics
+                super.paintComponent(g);// đảm bảo rằng JPanel được vẽ đúng cách trước khi thêm nội dung tùy chỉnh
                 Image scaledImage = backgroundImage.getScaledInstance(getWidth(),
-                        getHeight(), Image.SCALE_SMOOTH);
-                g.drawImage(scaledImage, 0, 0, null);
+                        getHeight(), Image.SCALE_SMOOTH);// làm cho phù hợp với kích thước hiện tại của panel
+                g.drawImage(scaledImage, 0, 0, null); // bắt đầu vẽ ở vị trí (0;0)
             }
         };
-
-        ac = new VegernereListener(this);
-        vegernereModel = new VeginereModel();
+        // khởi tạo các thuộc tính đã khai báo
+        ac = new SingleLetterSubstitutionListener(this);
+        singleLetterSubstitutionModel = new SingleLetterSubstitutionModel();
         font = new Font("Arial", Font.BOLD, 15);
-        jPanel_BackGround.setLayout(new GridBagLayout());
+        jPanel_BackGround.setLayout(new GridBagLayout());// setlayout cho jPanel_BackGround
         gbc = new GridBagConstraints();
         jLabel_plain = new JLabel("Message");
         jLabel_cipher = new JLabel("Result");
         jLabel_key = new JLabel("Key");
-        jLabel_generate_key = new JLabel("Generate Key");
 
         jTextArea_plain = new JTextArea(7, 40);
-        jTextArea_plain.setFont(font);
+        jTextArea_plain.setFont(font);// set cỡ chữ
         jTextArea_cipher = new JTextArea(7, 40);
-        jTextArea_cipher.setFont(font);
+        jTextArea_cipher.setFont(font);// set cỡ chữ
 
-        key = new JTextField(20);
-        key.setFont(font);
-        jTextField_alphabet = new JTextField(20);
-        jTextField_alphabet.setFont(font);
+        font = new Font("Arial", Font.BOLD, 18);
+        key = new JTextField(22);
+        key.setFont(font);// set cỡ chữ
 
         jScrollPane_plain = new JScrollPane(jTextArea_plain);
         jScrollPane_cipher = new JScrollPane(jTextArea_cipher);
@@ -101,38 +102,44 @@ public class VegernereView extends JPanel {
         jPanel_Text_plain = new JPanel(new GridLayout(1, 1, 5, 40));
         jPanel_Text_cipher = new JPanel(new GridLayout(1, 1, 5, 40));
         jPanel_jLabel_plain = new JPanel();
-        jPanel_jLabel_plain.setOpaque(false);
+
         jPanel_jLabel_cipher = new JPanel();
-        jPanel_jLabel_cipher.setOpaque(false);
         jPanel_left = new JPanel(new GridBagLayout());
-        jPanel_left.setOpaque(false);
         jPanel_right = new JPanel(new GridBagLayout());
-        jPanel_right.setOpaque(false);
         jPanel_above = new JPanel(new GridBagLayout());
-        jPanel_above.setOpaque(false);
-        jPanel_left.setOpaque(false);
+
         jPanel_Text_plain.add(jScrollPane_plain);
         jPanel_Text_cipher.add(jScrollPane_cipher);
         jPanel_jLabel_plain.add(jLabel_plain);
         jPanel_jLabel_cipher.add(jLabel_cipher);
         jPanel_jLabel_key = new JPanel();
-        jPanel_jLabel_key.setOpaque(false);
         jPanel_jLabel_generate_key = new JPanel();
-        jPanel_jLabel_generate_key.setOpaque(false);
         jPanel_jLabel_key.add(jLabel_key);
-        jPanel_jLabel_generate_key.add(jLabel_generate_key);
         jPanel_below = new JPanel(new GridBagLayout());
-        jPanel_below.setOpaque(false);
         jPanel_all = new JPanel(new GridBagLayout());
+        // -----------------------------------------------------
+
+        // tắt nền cho jpanel
+        jPanel_jLabel_plain.setOpaque(false);
+        jPanel_jLabel_cipher.setOpaque(false);
+        jPanel_left.setOpaque(false);
+        jPanel_right.setOpaque(false);
+        jPanel_above.setOpaque(false);
+        jPanel_left.setOpaque(false);
+        jPanel_jLabel_key.setOpaque(false);
+        jPanel_jLabel_generate_key.setOpaque(false);
+        jPanel_below.setOpaque(false);
         jPanel_all.setOpaque(false);
 
-        jButton_gennerate = new JButton("Generate");
-        jButton_gennerate.addActionListener(ac);
+        // thêm hành động cho các button
+        jButton_random = new JButton("Random");
+        jButton_random.addActionListener(ac);
         jButton_encryption = new JButton("Encryption");
         jButton_encryption.addActionListener(ac);
         jButton_decryption = new JButton("Decryption");
         jButton_decryption.addActionListener(ac);
 
+        // chỉnh tọa độ canh giữa và đều cho các panel cho GridBagConstraints
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(0, 20, 0, 20);
@@ -166,12 +173,11 @@ public class VegernereView extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        jPanel_right.add(jTextField_alphabet, gbc);
         gbc.insets = new Insets(10, 0, 0, 0);
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.CENTER;
-        jPanel_right.add(jButton_gennerate, gbc);
+        jPanel_right.add(jButton_random, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -191,7 +197,6 @@ public class VegernereView extends JPanel {
         gbc.gridy = 0;
         jPanel_above.add(jPanel_right, gbc);
 
-        // ------------------------------------------------
         gbc.insets = new Insets(10, 10, 60, 10);
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -202,27 +207,45 @@ public class VegernereView extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         jPanel_all.add(jPanel_below, gbc);
         jPanel_BackGround.add(jPanel_all);
+        // --------------------------------------------------------------
 
+        // setlayout chính cho panel Ceasarview và jPanel tổng(jPanel_BackGround)
         this.setLayout(new BorderLayout());
         this.add(jPanel_BackGround, BorderLayout.CENTER);
     }
 
-    public void createKey() {
-        vegernereModel.setPlainText(jTextArea_plain.getText());
-        vegernereModel.setKey(key.getText());
-        this.jTextField_alphabet.setText(vegernereModel.generateKey());
-    }
-
-    public void decryption() {
-        vegernereModel.encryption();
-        jTextArea_cipher.setText(vegernereModel.getCipherText());
-        vegernereModel.resetCipherText();
+    public void random() {
+        singleLetterSubstitutionModel.generateRandomKey();
+        this.key.setText(singleLetterSubstitutionModel.getKey());
     }
 
     public void encryption() {
-        vegernereModel.decryption();
-        jTextArea_cipher.setText(vegernereModel.getCipherText());
-        vegernereModel.resetCipherText();
+        singleLetterSubstitutionModel.setKey(key.getText());
+        System.out.println(singleLetterSubstitutionModel.getKey());
+        if (!singleLetterSubstitutionModel.duplicateKey(singleLetterSubstitutionModel.getKey())) {
+            JOptionPane.showMessageDialog(jPanel_BackGround, "Vui lòng nhập đủ 26 kí tự và không trùng nhau");
+        } else {
+            this.key.setText(singleLetterSubstitutionModel.getKey());
+            singleLetterSubstitutionModel.setPlaintext(jTextArea_plain.getText());
+            singleLetterSubstitutionModel.encryption();
+            jTextArea_cipher.setText(singleLetterSubstitutionModel.getCiphertext());
+            singleLetterSubstitutionModel.resetCipherText();
+        }
+
     }
 
+    public void decryption() {
+        singleLetterSubstitutionModel.setKey(key.getText());
+        System.out.println(singleLetterSubstitutionModel.getKey());
+        if (!singleLetterSubstitutionModel.duplicateKey(singleLetterSubstitutionModel.getKey())) {
+            JOptionPane.showMessageDialog(jPanel_BackGround, "Vui lòng nhập đủ 26 kí tự và không trùng nhau");
+        } else {
+            this.key.setText(singleLetterSubstitutionModel.getKey());
+            singleLetterSubstitutionModel.setPlaintext(jTextArea_plain.getText());
+            singleLetterSubstitutionModel.decryption();
+            jTextArea_cipher.setText(singleLetterSubstitutionModel.getCiphertext());
+            singleLetterSubstitutionModel.resetCipherText();
+        }
+
+    }
 }

@@ -14,22 +14,14 @@ public class CeasarListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String src = e.getActionCommand();
-        if (src.equals("+")) {
-            int value = Integer.parseInt(ceasarView.getjTextField_value().getText());
-            ceasarView.getjTextField_value().setText(value + 1 + ""); // Tăng giá trị
-            ceasarView.setKey(value);
-        } else if (src.equals("-")) {
-            int value = Integer.parseInt(ceasarView.getjTextField_value().getText());
-            ceasarView.getjTextField_value().setText(value - 1 + ""); // Giảm giá trị
-            ceasarView.setKey(value);
-        } else if (src.equals("Encryption")) {
-            int value = Integer.parseInt(ceasarView.getjTextField_value().getText());
-            ceasarView.setKey(value);
-            ceasarView.encryption();
-        } else if (src.equals("Decrytion")) {
-            int value = Integer.parseInt(ceasarView.getjTextField_value().getText());
-            ceasarView.setKey(value);
+        String src = e.getActionCommand();// lấy chuỗi tên button
+        if (src.equals("+")) { // nếu là nút cộng
+            ceasarView.cong(); // thực hiện hành động cộng
+        } else if (src.equals("-")) {// nếu là nút trừ
+            ceasarView.tru();// thực hiện hành động trừ
+        } else if (src.equals("Encryption")) {// nếu là nút Encryption
+            ceasarView.encryption();// thực hiện hành động encryption
+        } else if (src.equals("Decryption")) {// nếu là nút Encryption
             ceasarView.decryption();
         }
     }
