@@ -190,32 +190,57 @@ public class CeasarView extends JPanel {
     // hàm cập nhật key cho model
 
     public void encryption() {
-        int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
-        ceasarModel.setKey(value); // cập nhật lại key
-        this.ceasarModel.setPlainText(this.jTextArea_plain.getText());// lấy chữ trong jTextArea_plain vào PlainText của
-                                                                      // model
-        this.ceasarModel.encryption();// thuật toán mã hóa encryption trong model
-        this.jTextArea_cipher.setText(ceasarModel.getCipherText());// lấy text CipherText hiển thị lên jTextArea_cipher
+        try {
+            int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
+            ceasarModel.setKey(value); // cập nhật lại key
+            // lấy chữ trong jTextArea_plain vào PlainText của model
+            this.ceasarModel.setPlainText(this.jTextArea_plain.getText());
+            this.ceasarModel.encryption();// thuật toán mã hóa encryption trong model
+            // lấy text CipherText hiển thị lên jTextArea_cipher
+            this.jTextArea_cipher.setText(ceasarModel.getCipherText());
+        } catch (Exception e) {
+            // nếu gặp lỗi thì hiện thông báo lên
+            JOptionPane.showMessageDialog(jPanel_BackGround, "vui lòng nhập key là số");
+        }
+
     }
 
     public void decryption() {
-        int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
-        ceasarModel.setKey(value);// cập nhật lại key
-        this.ceasarModel.setPlainText(this.jTextArea_plain.getText());// lấy chữ trong jTextArea_plain vào PlainText của
-                                                                      // model
-        this.ceasarModel.decryption();// thuật toán giải mã encryption trong model
-        this.jTextArea_cipher.setText(ceasarModel.getCipherText());// lấy text CipherText hiển thị lên jTextArea_cipher
+
+        try {
+            int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
+            ceasarModel.setKey(value);// cập nhật lại key
+            // lấy chữ trong jTextArea_plain vào PlainText của model
+            this.ceasarModel.setPlainText(this.jTextArea_plain.getText());
+            this.ceasarModel.decryption();// thuật toán giải mã encryption trong model
+            // lấy text CipherText hiển thị lên jTextArea_cipher
+            this.jTextArea_cipher.setText(ceasarModel.getCipherText());
+        } catch (Exception e) {
+            // nếu gặp lỗi thì hiện thông báo lên
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là số", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void cong() {
-        int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
-        jTextField_value.setText(value + 1 + ""); // Tăng giá trị
-        ceasarModel.setKey(value);// cập nhật lại key
+        try {
+            int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
+            jTextField_value.setText(value + 1 + ""); // Tăng giá trị
+            ceasarModel.setKey(value);// cập nhật lại key
+        } catch (Exception e) {
+            // nếu gặp lỗi thì hiện thông báo lên
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là số", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void tru() {
-        int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
-        jTextField_value.setText(value - 1 + ""); // Giảm giá trị
-        ceasarModel.setKey(value);// cập nhật lại key
+        try {
+            int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
+            jTextField_value.setText(value - 1 + ""); // Giảm giá trị
+            ceasarModel.setKey(value);// cập nhật lại key
+        } catch (Exception e) {
+            // nếu gặp lỗi thì hiện thông báo lên
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là số", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 }

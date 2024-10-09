@@ -50,12 +50,12 @@ public class TranspositionModel {
         int keywordLength = key.length();
         int[] keyPosition = new int[keywordLength];
         char[] chKey = key.toCharArray();
-        
+
         // Khởi tạo mảng vị trí
         for (int i = 0; i < keywordLength; i++) {
             keyPosition[i] = i;
         }
-    
+
         // Thực hiện Bubble Sort để sắp xếp chKey và keyPosition
         for (int i = 0; i < keywordLength - 1; i++) {
             for (int j = 0; j < keywordLength - i - 1; j++) {
@@ -64,7 +64,7 @@ public class TranspositionModel {
                     char tempChar = chKey[j];
                     chKey[j] = chKey[j + 1];
                     chKey[j + 1] = tempChar;
-    
+
                     // Hoán đổi vị trí tương ứng trong keyPosition
                     int tempIndex = keyPosition[j];
                     keyPosition[j] = keyPosition[j + 1];
@@ -72,7 +72,7 @@ public class TranspositionModel {
                 }
             }
         }
-    
+
         return keyPosition; // Trả về mảng vị trí
     }
 
@@ -89,7 +89,7 @@ public class TranspositionModel {
                 if (z < chArr.length) {
                     arr[i][j] = chArr[z++];
                 } else {
-                    arr[i][j] = 'X'; // Nếu ma trận thiếu kí tự thì thêm "X" vào
+                    arr[i][j] = ' '; // Nếu ma trận thiếu kí tự thì thêm "X" vào
                 }
             }
         }
@@ -132,7 +132,7 @@ public class TranspositionModel {
             }
         }
     }
-    
+
     public void resetCipherText() {
         this.ciphertext = "";
     }

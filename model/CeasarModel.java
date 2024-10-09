@@ -61,11 +61,12 @@ public class CeasarModel {
                 if (chars > 'z') {
                     chars = (char) (chars - 'z' + 'a' - 1);
                 }
+
                 plaintextChars[i] = chars;
             }
             // Mã hóa chữ hoa
             else if (chars >= 'A' && chars <= 'Z') {
-                chars = (char) (chars + this.key); 
+                chars = (char) (chars + this.key);
                 if (chars > 'Z') {
                     chars = (char) (chars - 'Z' + 'A' - 1);
                 }
