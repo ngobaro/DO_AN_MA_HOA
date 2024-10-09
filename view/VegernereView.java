@@ -58,7 +58,7 @@ public class VegernereView extends JPanel {
     public VegernereView() {
         BufferedImage backgroundImage;
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/view/a.jpg"));
+            backgroundImage = ImageIO.read(getClass().getResource("/view/bg1.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
             return;

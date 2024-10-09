@@ -28,7 +28,7 @@ public class MainWindow extends JFrame {
     private MainWindowAction ac;
 
     private MainWindow() {
-        URL urlIconNotepad = MainWindow.class.getResource("DCWIZARD.png");
+        URL urlIconNotepad = MainWindow.class.getResource("LOGO.png");
         Image img = Toolkit.getDefaultToolkit().createImage(urlIconNotepad);
         this.setIconImage(img);
         // đặt tên cho tựa đề
