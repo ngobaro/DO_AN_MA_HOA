@@ -54,7 +54,7 @@ public class MainWindowAction implements ActionListener {
             mainWindow.setjButton_SingleLetterSubstitution();// cửa sổ jframe chính sẽ đổi panel
             mainWindow.setjButton_SingleLetterSubstitution();
             ;// đổi màu cho button đã chọn
-        } else if (button.equals("Vegernere")) {
+        } else if (button.equals("Veginere")) {
             // sử lí khi ấn nút Vegernere
             vegernereView = new VeginereView();
             mainWindow.show(vegernereView);// cửa sổ jframe chính sẽ đổi panel

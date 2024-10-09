@@ -59,7 +59,9 @@ public class VeginereView extends JPanel {
         // tạo background
         BufferedImage backgroundImage;// backgroundImage để lưu lại hình ảnh
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/view/a.jpg"));// đọc hình ảnh và tệp
+
+            backgroundImage = ImageIO.read(getClass().getResource("/view/VeginereBackground.jpg"));// đọc hình ảnh và
+                                                                                                   // tệp
 
         }
         // nếu đọc ảnh có lỗi thì ném ra IOException lúc này lỗi in ra và kết thúc
