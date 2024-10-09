@@ -223,8 +223,7 @@ public class SingleLetterSubstitutionView extends JPanel {
         singleLetterSubstitutionModel.setKey(key.getText());
         System.out.println(singleLetterSubstitutionModel.getKey());
         if (!singleLetterSubstitutionModel.duplicateKey(singleLetterSubstitutionModel.getKey())) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ 26 kí tự và không trùng nhau", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ 26 kí tự và không trùng nhau !", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             this.key.setText(singleLetterSubstitutionModel.getKey());
             singleLetterSubstitutionModel.setPlaintext(jTextArea_plain.getText());
@@ -239,8 +238,7 @@ public class SingleLetterSubstitutionView extends JPanel {
         singleLetterSubstitutionModel.setKey(key.getText());
         System.out.println(singleLetterSubstitutionModel.getKey());
         if (!singleLetterSubstitutionModel.duplicateKey(singleLetterSubstitutionModel.getKey())) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ 26 kí tự và không trùng nhau", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ 26 kí tự và không trùng nhau !", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             this.key.setText(singleLetterSubstitutionModel.getKey());
             singleLetterSubstitutionModel.setPlaintext(jTextArea_plain.getText());

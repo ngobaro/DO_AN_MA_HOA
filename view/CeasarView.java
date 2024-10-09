@@ -199,8 +199,7 @@ public class CeasarView extends JPanel {
             // lấy text CipherText hiển thị lên jTextArea_cipher
             this.jTextArea_cipher.setText(ceasarModel.getCipherText());
         } catch (Exception e) {
-            // nếu gặp lỗi thì hiện thông báo lên
-            JOptionPane.showMessageDialog(jPanel_BackGround, "vui lòng nhập key là số");
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là số !", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -217,7 +216,7 @@ public class CeasarView extends JPanel {
             this.jTextArea_cipher.setText(ceasarModel.getCipherText());
         } catch (Exception e) {
             // nếu gặp lỗi thì hiện thông báo lên
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là số", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là số !", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -228,7 +227,7 @@ public class CeasarView extends JPanel {
             ceasarModel.setKey(value);// cập nhật lại key
         } catch (Exception e) {
             // nếu gặp lỗi thì hiện thông báo lên
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là số", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là số !", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -239,7 +238,7 @@ public class CeasarView extends JPanel {
             ceasarModel.setKey(value);// cập nhật lại key
         } catch (Exception e) {
             // nếu gặp lỗi thì hiện thông báo lên
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là số", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là số !", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }

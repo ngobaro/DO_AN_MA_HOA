@@ -89,7 +89,7 @@ public class TranspositionModel {
                 if (z < chArr.length) {
                     arr[i][j] = chArr[z++];
                 } else {
-                    arr[i][j] = ' '; // Nếu ma trận thiếu kí tự thì thêm "X" vào
+                    arr[i][j] = 'X'; // Nếu ma trận thiếu kí tự thì thêm "X" vào
                 }
             }
         }
