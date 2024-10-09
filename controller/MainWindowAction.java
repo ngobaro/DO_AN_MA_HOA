@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import main.MainWindow;
 import view.CeasarView;
 import view.PlayFairView;
-import view.SubstitutionView;
+import view.SingleLetterSubstitutionView;
 import view.TranspositionView;
-import view.VegernereView;
+import view.VeginereView;
 
 /**
  * MainWindowAction
@@ -20,9 +20,9 @@ public class MainWindowAction implements ActionListener {
     // khởi tạo các đối tượng view khi tương tác với button
     private CeasarView ceasarView;
     private PlayFairView playFairView;
-    private SubstitutionView substitutionView;
+    private SingleLetterSubstitutionView substitutionView;
     private TranspositionView transpositionView;
-    private VegernereView vegernereView;
+    private VeginereView vegernereView;
 
     // hàm khỏi tạo
     public MainWindowAction(MainWindow mainWindow) {
@@ -42,20 +42,21 @@ public class MainWindowAction implements ActionListener {
             playFairView = new PlayFairView();
             mainWindow.show(playFairView);// cửa sổ jframe chính sẽ đổi panel
             mainWindow.setjButton_PlayFair();// đổi màu cho button đã chọn
-        } else if (button.equals("Substituton")) {
+        } else if (button.equals("SingleLetterSubstitution")) {
             // sử lí khi ấn nút Substituton
-            substitutionView = new SubstitutionView();
+            substitutionView = new SingleLetterSubstitutionView();
             mainWindow.show(substitutionView);// cửa sổ jframe chính sẽ đổi panel
             mainWindow.setjButton_Substitution();// đổi màu cho button đã chọn
         } else if (button.equals("Transposition")) {
             // sử lí khi ấn nút Transposition
             transpositionView = new TranspositionView();
             mainWindow.show(transpositionView);
-            mainWindow.setjButton_Transposition();// cửa sổ jframe chính sẽ đổi panel
-            mainWindow.setjButton_Transposition();// đổi màu cho button đã chọn
+            mainWindow.setjButton_SingleLetterSubstitution();// cửa sổ jframe chính sẽ đổi panel
+            mainWindow.setjButton_SingleLetterSubstitution();
+            ;// đổi màu cho button đã chọn
         } else if (button.equals("Vegernere")) {
             // sử lí khi ấn nút Vegernere
-            vegernereView = new VegernereView();
+            vegernereView = new VeginereView();
             mainWindow.show(vegernereView);// cửa sổ jframe chính sẽ đổi panel
             mainWindow.setjButton_Vegernere();// đổi màu cho button đã chọn
         }

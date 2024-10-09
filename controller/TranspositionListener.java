@@ -15,13 +15,9 @@ public class TranspositionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String src = e.getActionCommand();// lấy chuỗi tên button
-        if (src.equals("+")) { // nếu là nút cộng
-            transpositionView.cong(); // thực hiện hành động cộng
-        } else if (src.equals("-")) {// nếu là nút trừ
-            transpositionView.tru();// thực hiện hành động trừ
-        } else if (src.equals("Encryption")) {// nếu là nút Encryption
-            transpositionView.encryption();// thực hiện hành động encryption
-        } else if (src.equals("Decryption")) {// nếu là nút Encryption
+        if (src.equals("Encryption")) { // nếu là nút Decryption
+            transpositionView.encryption();
+        } else if (src.equals("Decryption")) {// nếu là nút Decryption
             transpositionView.decryption();
         }
     }

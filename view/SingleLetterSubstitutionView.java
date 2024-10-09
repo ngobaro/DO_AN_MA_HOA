@@ -1,4 +1,3 @@
-
 package view;
 
 import java.awt.*;
@@ -6,19 +5,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import controller.VegernereListener;
-import model.VeginereModel;
+import controller.SingleLetterSubstitutionListener;
+import model.SingleLetterSubstitutionModel;
 
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-/**
- * PlayFairView
- */
-public class VegernereView extends JPanel {
+public class SingleLetterSubstitutionView extends JPanel {
+    // khai báo các thuộc tính
     private Font font;
-    private VeginereModel vegernereModel;
+    private SingleLetterSubstitutionModel singleLetterSubstitutionModel;
     private GridBagConstraints gbc;
 
     private JTextArea jTextArea_plain;
@@ -27,7 +24,6 @@ public class VegernereView extends JPanel {
     private JLabel jLabel_plain;
     private JLabel jLabel_cipher;
     private JLabel jLabel_key;
-    private JLabel jLabel_generate_key;
 
     private JPanel jPanel_BackGround;
     private JPanel jPanel_Text_plain;
@@ -47,15 +43,17 @@ public class VegernereView extends JPanel {
     private JScrollPane jScrollPane_cipher;
 
     private JTextField key;
-    private JTextField jTextField_alphabet;
+    // private JTextField jTextField_alphabet;
 
-    private JButton jButton_gennerate;
+    private JButton jButton_random;
     private JButton jButton_encryption;
     private JButton jButton_decryption;
 
     private ActionListener ac;
+    // -------------------------------------------
 
-    public VegernereView() {
+    // khởi tạo panel PlayFairView
+    public SingleLetterSubstitutionView() {
         // tạo background
         BufferedImage backgroundImage;// backgroundImage để lưu lại hình ảnh
         try {
@@ -80,26 +78,23 @@ public class VegernereView extends JPanel {
             }
         };
         // khởi tạo các thuộc tính đã khai báo
-        ac = new VegernereListener(this);
-        vegernereModel = new VeginereModel();
+        ac = new SingleLetterSubstitutionListener(this);
+        singleLetterSubstitutionModel = new SingleLetterSubstitutionModel();
         font = new Font("Arial", Font.BOLD, 15);
         jPanel_BackGround.setLayout(new GridBagLayout());// setlayout cho jPanel_BackGround
         gbc = new GridBagConstraints();
         jLabel_plain = new JLabel("Message");
         jLabel_cipher = new JLabel("Result");
         jLabel_key = new JLabel("Key");
-        jLabel_generate_key = new JLabel("Generate Key");
 
         jTextArea_plain = new JTextArea(7, 40);
         jTextArea_plain.setFont(font);// set cỡ chữ
         jTextArea_cipher = new JTextArea(7, 40);
         jTextArea_cipher.setFont(font);// set cỡ chữ
 
-        font = new Font("Arial", Font.BOLD, 25);
-        key = new JTextField(16);
+        font = new Font("Arial", Font.BOLD, 18);
+        key = new JTextField(22);
         key.setFont(font);// set cỡ chữ
-        jTextField_alphabet = new JTextField(16);
-        jTextField_alphabet.setFont(font);// set cỡ chữ
 
         jScrollPane_plain = new JScrollPane(jTextArea_plain);
         jScrollPane_cipher = new JScrollPane(jTextArea_cipher);
@@ -120,7 +115,6 @@ public class VegernereView extends JPanel {
         jPanel_jLabel_key = new JPanel();
         jPanel_jLabel_generate_key = new JPanel();
         jPanel_jLabel_key.add(jLabel_key);
-        jPanel_jLabel_generate_key.add(jLabel_generate_key);
         jPanel_below = new JPanel(new GridBagLayout());
         jPanel_all = new JPanel(new GridBagLayout());
         // -----------------------------------------------------
@@ -138,8 +132,8 @@ public class VegernereView extends JPanel {
         jPanel_all.setOpaque(false);
 
         // thêm hành động cho các button
-        jButton_gennerate = new JButton("Generate");
-        jButton_gennerate.addActionListener(ac);
+        jButton_random = new JButton("Random");
+        jButton_random.addActionListener(ac);
         jButton_encryption = new JButton("Encryption");
         jButton_encryption.addActionListener(ac);
         jButton_decryption = new JButton("Decryption");
@@ -179,12 +173,11 @@ public class VegernereView extends JPanel {
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        jPanel_right.add(jTextField_alphabet, gbc);
         gbc.insets = new Insets(10, 0, 0, 0);
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.CENTER;
-        jPanel_right.add(jButton_gennerate, gbc);
+        jPanel_right.add(jButton_random, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -221,22 +214,38 @@ public class VegernereView extends JPanel {
         this.add(jPanel_BackGround, BorderLayout.CENTER);
     }
 
-    public void createKey() {// hàm tạo key
-        vegernereModel.setPlainText(jTextArea_plain.getText());// truyền chuỗi plaintext vào model vào tạo key
-        vegernereModel.setKey(key.getText());// truyền chuỗi keytext vào model vào tạo key
-        this.jTextField_alphabet.setText(vegernereModel.generateKey());// hiển thị key lên view
+    public void random() {
+        singleLetterSubstitutionModel.generateRandomKey();
+        this.key.setText(singleLetterSubstitutionModel.getKey());
     }
 
-    public void decryption() {// hàm mã hóa decryption
-        vegernereModel.encryption();// gọi hàm model để giải mã
-        jTextArea_cipher.setText(vegernereModel.getCipherText());// hiển thị sao khi giải mã
-        vegernereModel.resetCipherText();// gọi hàm từ model để reset kết quả
+    public void encryption() {
+        singleLetterSubstitutionModel.setKey(key.getText());
+        System.out.println(singleLetterSubstitutionModel.getKey());
+        if (!singleLetterSubstitutionModel.duplicateKey(singleLetterSubstitutionModel.getKey())) {
+            JOptionPane.showMessageDialog(jPanel_BackGround, "Vui lòng nhập đủ 26 kí tự và không trùng nhau");
+        } else {
+            this.key.setText(singleLetterSubstitutionModel.getKey());
+            singleLetterSubstitutionModel.setPlaintext(jTextArea_plain.getText());
+            singleLetterSubstitutionModel.encryption();
+            jTextArea_cipher.setText(singleLetterSubstitutionModel.getCiphertext());
+            singleLetterSubstitutionModel.resetCipherText();
+        }
+
     }
 
-    public void encryption() {// hàm mã hóa encryption
-        vegernereModel.decryption();// gọi hàm model để mã hóa
-        jTextArea_cipher.setText(vegernereModel.getCipherText());// hiển thị sao khi mã hóa
-        vegernereModel.resetCipherText();// gọi hàm từ model để reset kết quả
-    }
+    public void decryption() {
+        singleLetterSubstitutionModel.setKey(key.getText());
+        System.out.println(singleLetterSubstitutionModel.getKey());
+        if (!singleLetterSubstitutionModel.duplicateKey(singleLetterSubstitutionModel.getKey())) {
+            JOptionPane.showMessageDialog(jPanel_BackGround, "Vui lòng nhập đủ 26 kí tự và không trùng nhau");
+        } else {
+            this.key.setText(singleLetterSubstitutionModel.getKey());
+            singleLetterSubstitutionModel.setPlaintext(jTextArea_plain.getText());
+            singleLetterSubstitutionModel.decryption();
+            jTextArea_cipher.setText(singleLetterSubstitutionModel.getCiphertext());
+            singleLetterSubstitutionModel.resetCipherText();
+        }
 
+    }
 }

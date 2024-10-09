@@ -1,3 +1,4 @@
+
 package view;
 
 import java.awt.*;
@@ -5,17 +6,19 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import controller.SubstitutionListener;
-import model.SubstitutionModel;
+import controller.VeginereListener;
+import model.VeginereModel;
 
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-public class SubstitutionView extends JPanel {
-    // khai báo các thuộc tính
+/**
+ * PlayFairView
+ */
+public class VeginereView extends JPanel {
     private Font font;
-    private SubstitutionModel substitutionModel;
+    private VeginereModel vegernereModel;
     private GridBagConstraints gbc;
 
     private JTextArea jTextArea_plain;
@@ -52,10 +55,7 @@ public class SubstitutionView extends JPanel {
 
     private ActionListener ac;
 
-    // -------------------------------------------
-
-    // khởi tạo panel PlayFairView
-    public SubstitutionView() {
+    public VeginereView() {
         // tạo background
         BufferedImage backgroundImage;// backgroundImage để lưu lại hình ảnh
         try {
@@ -80,8 +80,8 @@ public class SubstitutionView extends JPanel {
             }
         };
         // khởi tạo các thuộc tính đã khai báo
-        ac = new SubstitutionListener(this);
-        substitutionModel = new SubstitutionModel();
+        ac = new VeginereListener(this);
+        vegernereModel = new VeginereModel();
         font = new Font("Arial", Font.BOLD, 15);
         jPanel_BackGround.setLayout(new GridBagLayout());// setlayout cho jPanel_BackGround
         gbc = new GridBagConstraints();
@@ -220,4 +220,23 @@ public class SubstitutionView extends JPanel {
         this.setLayout(new BorderLayout());
         this.add(jPanel_BackGround, BorderLayout.CENTER);
     }
+
+    public void createKey() {// hàm tạo key
+        vegernereModel.setPlainText(jTextArea_plain.getText());// truyền chuỗi plaintext vào model vào tạo key
+        vegernereModel.setKey(key.getText());// truyền chuỗi keytext vào model vào tạo key
+        this.jTextField_alphabet.setText(vegernereModel.generateKey());// hiển thị key lên view
+    }
+
+    public void decryption() {// hàm mã hóa decryption
+        vegernereModel.encryption();// gọi hàm model để giải mã
+        jTextArea_cipher.setText(vegernereModel.getCipherText());// hiển thị sao khi giải mã
+        vegernereModel.resetCipherText();// gọi hàm từ model để reset kết quả
+    }
+
+    public void encryption() {// hàm mã hóa encryption
+        vegernereModel.decryption();// gọi hàm model để mã hóa
+        jTextArea_cipher.setText(vegernereModel.getCipherText());// hiển thị sao khi mã hóa
+        vegernereModel.resetCipherText();// gọi hàm từ model để reset kết quả
+    }
+
 }
