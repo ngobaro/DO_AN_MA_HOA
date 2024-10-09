@@ -78,7 +78,7 @@ public class MainWindow extends JFrame {
         this.setLayout(new BorderLayout());
         // bỏ thanh cụ ở phía bắc
         this.add(jToolBar, BorderLayout.NORTH);
-        // bỏ pảel
+        // bỏ panel trống vào trong center
         this.add(jPanel, BorderLayout.CENTER);
     }
 
@@ -99,7 +99,7 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
-    // nút nào được nhấn thì set lại màu cho nút đó
+    // nút nào được nhấn thì set lại màu cho nút(jbutton) đó
     public void setjButton_Caesar() {
         jButton_Caesar.setBackground(Color.GREEN);
         jButton_PlayFair.setBackground(Color.lightGray);

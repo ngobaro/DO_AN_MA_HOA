@@ -14,6 +14,7 @@ import model.CeasarModel;
  * CeasarView
  */
 public class CeasarView extends JPanel {
+    // khai báo các thuộc tính
     private CeasarModel ceasarModel;
 
     private JTextArea jTextArea_plain;
@@ -37,35 +38,40 @@ public class CeasarView extends JPanel {
     private JPanel jPanel_Label_result;
     private JPanel jPanel_Button;
 
-    private JButton jButton_1;
-    private JButton jButton_2;
+    private JButton jButton_encryption;
+    private JButton jButton_decryption;
     private JButton jButton_Up;
     private JButton jButton_Down;
 
     private ActionListener ac;
     private Font font;
 
+    // khởi tạo panel CeasarView
     public CeasarView() {
-        BufferedImage backgroundImage;
+        // tạo background
+        BufferedImage backgroundImage;// backgroundImage để lưu lại hình ảnh
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/view/a.jpg"));
+            backgroundImage = ImageIO.read(getClass().getResource("/view/a.jpg"));// đọc hình ảnh và tệp
 
-        } catch (IOException e) {
+        }
+        // nếu đọc ảnh có lỗi thì ném ra IOException lúc này lỗi in ra và kết thúc
+        // chương trình và return
+        catch (IOException e) {
             e.printStackTrace();
             return;
         }
 
         // Tạo một JPanel để chứa ảnh background
         jPanel_BackGround = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
+            @Override // ghi đè vẽ lại panel
+            protected void paintComponent(Graphics g) { // vẽ lại dựa trên Graphics
+                super.paintComponent(g);// đảm bảo rằng JPanel được vẽ đúng cách trước khi thêm nội dung tùy chỉnh
                 Image scaledImage = backgroundImage.getScaledInstance(getWidth(),
-                        getHeight(), Image.SCALE_SMOOTH);
-                g.drawImage(scaledImage, 0, 0, null);
+                        getHeight(), Image.SCALE_SMOOTH);// làm cho phù hợp với kích thước hiện tại của panel
+                g.drawImage(scaledImage, 0, 0, null); // bắt đầu vẽ ở vị trí (0;0)
             }
         };
-
+        // khởi tạo ra các thuộc tính đã khai báo
         ceasarModel = new CeasarModel();
         ac = new CeasarListener(this);
         font = new Font("Arial", Font.BOLD, 15);
@@ -91,43 +97,54 @@ public class CeasarView extends JPanel {
         jScrollPane_plain.setOpaque(false);
         jScrollPane_cipher.setOpaque(false);
 
-        jButton_1 = new JButton("Encryption");
-        jButton_1.addActionListener(ac);
-        jButton_2 = new JButton("Decrytion");
-        jButton_2.addActionListener(ac);
+        // thêm hành động lắng nghe cho nó
+        jButton_encryption = new JButton("Encryption");
+        jButton_encryption.addActionListener(ac);
+        jButton_decryption = new JButton("Decryption");
+        jButton_decryption.addActionListener(ac);
         jButton_Up = new JButton("+");
         jButton_Up.addActionListener(ac);
         jButton_Down = new JButton("-");
         jButton_Down.addActionListener(ac);
+        // ---------------------------------------------------
+        jLabel_messenger = new JLabel(" Message");
+        jLabel_key = new JLabel("Key");
+        jLabel_result = new JLabel(" Result");
 
         jPanel_Button = new JPanel(new GridLayout(1, 3, 10, 200));
         jPanel_key = new JPanel(new GridLayout(1, 3));
+        // ----------------------------------------------------------------------------
 
+        // gộp nút lên, xuống và jtextFied thành panel_key
         jPanel_key.add(jButton_Down);
         jPanel_key.add(jTextField_value);
         jPanel_key.add(jButton_Up);
-
-        jPanel_Button.add(jButton_1);
-        jPanel_Button.add(jButton_2);
+        // gộp 2 button vào 1 panel
+        jPanel_Button.add(jButton_encryption);
+        jPanel_Button.add(jButton_decryption);
+        // chỉnh kích cở cho nút
         font = new Font("Arial", Font.BOLD, 45);
         jPanel_Button.setFont(font);
-
+        // tắt nền của panel
         jPanel_Button.setOpaque(false);
 
+        // gộp chung jScrollPanel_plain lại vào 1 panel
         jPanel_messenger.add(jScrollPane_plain);
         jPanel_result.add(jScrollPane_cipher);
+        // chinh lại font chữ
         font = new Font("Arial", Font.BOLD, 15);
-        jLabel_key = new JLabel("Key");
-        jLabel_messenger = new JLabel(" Message");
+
+        // gộp các chung các dong chữ và tắt nền panel chỉnh chữ
         jPanel_Label_messenger.add(jLabel_messenger);
-        jLabel_result = new JLabel(" Result");
         jPanel_Label_result.add(jLabel_result);
         jPanel_Label_messenger.setOpaque(false);
         jPanel_Label_result.setOpaque(false);
         jLabel_key.setFont(font);
         jLabel_messenger.setFont(font);
         jLabel_result.setFont(font);
+        // -------------------------------------------------------
 
+        // chỉnh tọa độ canh giữa và đều cho các panel cho GridBagConstraints
         gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 10, 0, 10);
         gbc.gridx = 0;
@@ -162,41 +179,43 @@ public class CeasarView extends JPanel {
         gbc.gridy = 2;
         jPanel_BackGround.add(jPanel_Label_result, gbc);
 
-        jPanel.setOpaque(false);
+        jPanel.setOpaque(false);// tắt nền của panel
+        // --------------------------------------------------------------
 
+        // setlayout chính cho panel Ceasarview và jPanel tổng(jPanel_BackGround)
         this.setLayout(new BorderLayout());
-        // this.add(MainWindow.jToolBar, BorderLayout.NORTH);
         this.add(jPanel_BackGround, BorderLayout.CENTER);
     }
 
-    public void setKey(int key) {
-        ceasarModel.setKey(key);
-    }
-
-    public JTextField getjTextField_value() {
-        return jTextField_value;
-    }
-
-    public void setjTextField_value(JTextField jTextField_value) {
-        this.jTextField_value = jTextField_value;
-    }
-
-    public void setPlainText(String plainText) {
-        ceasarModel.setPlainText(plainText);
-    }
+    // hàm cập nhật key cho model
 
     public void encryption() {
-        this.ceasarModel.setPlainText(this.jTextArea_plain.getText());
-        this.ceasarModel.Encryption();
-        this.jTextArea_cipher.setText(ceasarModel.getCipherText());
-        System.out.println(ceasarModel.getKey());
+        int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
+        ceasarModel.setKey(value); // cập nhật lại key
+        this.ceasarModel.setPlainText(this.jTextArea_plain.getText());// lấy chữ trong jTextArea_plain vào PlainText của
+                                                                      // model
+        this.ceasarModel.encryption();// thuật toán mã hóa encryption trong model
+        this.jTextArea_cipher.setText(ceasarModel.getCipherText());// lấy text CipherText hiển thị lên jTextArea_cipher
     }
 
     public void decryption() {
-        this.ceasarModel.setPlainText(this.jTextArea_plain.getText());
-        this.ceasarModel.Decryption();
-        this.jTextArea_cipher.setText(ceasarModel.getCipherText());
-        System.out.println(ceasarModel.getKey());
+        int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
+        ceasarModel.setKey(value);// cập nhật lại key
+        this.ceasarModel.setPlainText(this.jTextArea_plain.getText());// lấy chữ trong jTextArea_plain vào PlainText của
+                                                                      // model
+        this.ceasarModel.decryption();// thuật toán giải mã encryption trong model
+        this.jTextArea_cipher.setText(ceasarModel.getCipherText());// lấy text CipherText hiển thị lên jTextArea_cipher
+    }
 
+    public void cong() {
+        int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
+        jTextField_value.setText(value + 1 + ""); // Tăng giá trị
+        ceasarModel.setKey(value);// cập nhật lại key
+    }
+
+    public void tru() {
+        int value = Integer.parseInt(jTextField_value.getText());// lấy số trong jTextField_value vào value
+        jTextField_value.setText(value - 1 + ""); // Giảm giá trị
+        ceasarModel.setKey(value);// cập nhật lại key
     }
 }

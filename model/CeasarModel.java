@@ -51,7 +51,7 @@ public class CeasarModel {
     // ---------------------------------
 
     // Hàm mã hóa
-    public void Encryption() {
+    public void encryption() {
         char[] plaintextChars = this.plainText.toCharArray(); // Chuyển chuỗi thành mảng ký tự
 
         for (int i = 0; i < plaintextChars.length; i++) {
@@ -78,7 +78,7 @@ public class CeasarModel {
     // ---------------------------------
 
     // Hàm giải mã
-    public void Decryption() {
+    public void decryption() {
         char[] plaintextChars = this.plainText.toCharArray(); // Chuyển chuỗi thành mảng ký tự
 
         for (int i = 0; i < plaintextChars.length; i++) {

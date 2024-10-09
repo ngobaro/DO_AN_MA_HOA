@@ -1,13 +1,21 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
+
+import controller.SubstitutionListener;
+import model.SubstitutionModel;
+
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class SubstitutionView extends JPanel {
+    // khai báo các thuộc tính
     private Font font;
+    private SubstitutionModel substitutionModel;
     private GridBagConstraints gbc;
 
     private JTextArea jTextArea_plain;
@@ -42,37 +50,56 @@ public class SubstitutionView extends JPanel {
     private JButton jButton_encryption;
     private JButton jButton_decryption;
 
+    private ActionListener ac;
+
+    // -------------------------------------------
+
+    // khởi tạo panel PlayFairView
     public SubstitutionView() {
-        BufferedImage backgroundImage;
+        // tạo background
+        BufferedImage backgroundImage;// backgroundImage để lưu lại hình ảnh
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/view/a.jpg"));
-        } catch (IOException e) {
+            backgroundImage = ImageIO.read(getClass().getResource("/view/a.jpg"));// đọc hình ảnh và tệp
+
+        }
+        // nếu đọc ảnh có lỗi thì ném ra IOException lúc này lỗi in ra và kết thúc
+        // chương trình và return
+        catch (IOException e) {
             e.printStackTrace();
             return;
         }
 
         // Tạo một JPanel để chứa ảnh background
         jPanel_BackGround = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
+            @Override // ghi đè vẽ lại panel
+            protected void paintComponent(Graphics g) { // vẽ lại dựa trên Graphics
+                super.paintComponent(g);// đảm bảo rằng JPanel được vẽ đúng cách trước khi thêm nội dung tùy chỉnh
                 Image scaledImage = backgroundImage.getScaledInstance(getWidth(),
-                        getHeight(), Image.SCALE_SMOOTH);
-                g.drawImage(scaledImage, 0, 0, null);
+                        getHeight(), Image.SCALE_SMOOTH);// làm cho phù hợp với kích thước hiện tại của panel
+                g.drawImage(scaledImage, 0, 0, null); // bắt đầu vẽ ở vị trí (0;0)
             }
         };
-        jPanel_BackGround.setLayout(new GridBagLayout());
+        // khởi tạo các thuộc tính đã khai báo
+        ac = new SubstitutionListener(this);
+        substitutionModel = new SubstitutionModel();
+        font = new Font("Arial", Font.BOLD, 15);
+        jPanel_BackGround.setLayout(new GridBagLayout());// setlayout cho jPanel_BackGround
         gbc = new GridBagConstraints();
         jLabel_plain = new JLabel("Message");
         jLabel_cipher = new JLabel("Result");
         jLabel_key = new JLabel("Key");
-        jLabel_generate_key = new JLabel("Random Key");
+        jLabel_generate_key = new JLabel("Generate Key");
 
         jTextArea_plain = new JTextArea(7, 40);
+        jTextArea_plain.setFont(font);// set cỡ chữ
         jTextArea_cipher = new JTextArea(7, 40);
+        jTextArea_cipher.setFont(font);// set cỡ chữ
 
-        key = new JTextField(26);
-        jTextField_alphabet = new JTextField(26);
+        font = new Font("Arial", Font.BOLD, 25);
+        key = new JTextField(16);
+        key.setFont(font);// set cỡ chữ
+        jTextField_alphabet = new JTextField(16);
+        jTextField_alphabet.setFont(font);// set cỡ chữ
 
         jScrollPane_plain = new JScrollPane(jTextArea_plain);
         jScrollPane_cipher = new JScrollPane(jTextArea_cipher);
@@ -80,35 +107,45 @@ public class SubstitutionView extends JPanel {
         jPanel_Text_plain = new JPanel(new GridLayout(1, 1, 5, 40));
         jPanel_Text_cipher = new JPanel(new GridLayout(1, 1, 5, 40));
         jPanel_jLabel_plain = new JPanel();
-        jPanel_jLabel_plain.setOpaque(false);
+
         jPanel_jLabel_cipher = new JPanel();
-        jPanel_jLabel_cipher.setOpaque(false);
         jPanel_left = new JPanel(new GridBagLayout());
-        jPanel_left.setOpaque(false);
         jPanel_right = new JPanel(new GridBagLayout());
-        jPanel_right.setOpaque(false);
         jPanel_above = new JPanel(new GridBagLayout());
-        jPanel_above.setOpaque(false);
-        jPanel_left.setOpaque(false);
+
         jPanel_Text_plain.add(jScrollPane_plain);
         jPanel_Text_cipher.add(jScrollPane_cipher);
         jPanel_jLabel_plain.add(jLabel_plain);
         jPanel_jLabel_cipher.add(jLabel_cipher);
         jPanel_jLabel_key = new JPanel();
-        jPanel_jLabel_key.setOpaque(false);
         jPanel_jLabel_generate_key = new JPanel();
-        jPanel_jLabel_generate_key.setOpaque(false);
         jPanel_jLabel_key.add(jLabel_key);
         jPanel_jLabel_generate_key.add(jLabel_generate_key);
         jPanel_below = new JPanel(new GridBagLayout());
-        jPanel_below.setOpaque(false);
         jPanel_all = new JPanel(new GridBagLayout());
+        // -----------------------------------------------------
+
+        // tắt nền cho jpanel
+        jPanel_jLabel_plain.setOpaque(false);
+        jPanel_jLabel_cipher.setOpaque(false);
+        jPanel_left.setOpaque(false);
+        jPanel_right.setOpaque(false);
+        jPanel_above.setOpaque(false);
+        jPanel_left.setOpaque(false);
+        jPanel_jLabel_key.setOpaque(false);
+        jPanel_jLabel_generate_key.setOpaque(false);
+        jPanel_below.setOpaque(false);
         jPanel_all.setOpaque(false);
 
-        jButton_gennerate = new JButton("random");
-        jButton_encryption = new JButton("encryption");
-        jButton_decryption = new JButton("decryption");
+        // thêm hành động cho các button
+        jButton_gennerate = new JButton("Generate");
+        jButton_gennerate.addActionListener(ac);
+        jButton_encryption = new JButton("Encryption");
+        jButton_encryption.addActionListener(ac);
+        jButton_decryption = new JButton("Decryption");
+        jButton_decryption.addActionListener(ac);
 
+        // chỉnh tọa độ canh giữa và đều cho các panel cho GridBagConstraints
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(0, 20, 0, 20);
@@ -167,8 +204,6 @@ public class SubstitutionView extends JPanel {
         gbc.gridy = 0;
         jPanel_above.add(jPanel_right, gbc);
 
-        // // ------------------------------------------------
-
         gbc.insets = new Insets(10, 10, 60, 10);
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -179,7 +214,9 @@ public class SubstitutionView extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         jPanel_all.add(jPanel_below, gbc);
         jPanel_BackGround.add(jPanel_all);
+        // --------------------------------------------------------------
 
+        // setlayout chính cho panel Ceasarview và jPanel tổng(jPanel_BackGround)
         this.setLayout(new BorderLayout());
         this.add(jPanel_BackGround, BorderLayout.CENTER);
     }
