@@ -1,4 +1,5 @@
 package model;
+import java.util.Random;
 
 public class SingleLetterCodeTableModel {
     private String key;
@@ -41,8 +42,24 @@ public class SingleLetterCodeTableModel {
         this.key = key.replaceAll("\\s", "").toUpperCase();
     }
 
-    // Mã hóa phương thức
-    public void enCryption() {
+    // Hàm tạo ra random key
+    public static String generateRandomKey() {
+        char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        Random random = new Random();
+
+        // Xáo trộn bảng chữ cái
+        for (int i = alphabet.length - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            char temp = alphabet[i];
+            alphabet[i] = alphabet[j];
+            alphabet[j] = temp;
+        }
+
+        return new String(alphabet); // Trả về key vừa được random
+    }
+
+    // Hàm mã hóa
+    public void encryption() {
         resetCipherText();
         for (int i = 0; i < plainText.length(); i++) {
             char ch = plainText.charAt(i);
@@ -60,8 +77,8 @@ public class SingleLetterCodeTableModel {
         }
     }
 
-    // Giải mã phương thức
-    public void deCryption() {
+    // Hàm giải mã
+    public void decryption() {
         for (int i = 0; i < plainText.length(); i++) {
             char ch = plainText.charAt(i);
             // Tìm vị trí của ký tự trong key
