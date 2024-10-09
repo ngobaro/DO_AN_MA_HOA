@@ -49,19 +49,31 @@ public class TranspositionModel {
     public int[] getNumberLocation() {
         int keywordLength = key.length();
         int[] keyPosition = new int[keywordLength];
-
-        // Xác định vị trí của các ký tự trong từ khóa
+        char[] chKey = key.toCharArray();
+        
+        // Khởi tạo mảng vị trí
         for (int i = 0; i < keywordLength; i++) {
-            int index = 0;
-            for (int j = 0; j < keywordLength; j++) {
-                if (key.charAt(j) < key.charAt(i)) {
-                    index++;
+            keyPosition[i] = i;
+        }
+    
+        // Thực hiện Bubble Sort để sắp xếp chKey và keyPosition
+        for (int i = 0; i < keywordLength - 1; i++) {
+            for (int j = 0; j < keywordLength - i - 1; j++) {
+                if (chKey[j] > chKey[j + 1]) {
+                    // Hoán đổi ký tự trong chKey
+                    char tempChar = chKey[j];
+                    chKey[j] = chKey[j + 1];
+                    chKey[j + 1] = tempChar;
+    
+                    // Hoán đổi vị trí tương ứng trong keyPosition
+                    int tempIndex = keyPosition[j];
+                    keyPosition[j] = keyPosition[j + 1];
+                    keyPosition[j + 1] = tempIndex;
                 }
             }
-            keyPosition[index] = i; // Gán vị trí
         }
-
-        return keyPosition; // Trả về vị trí của kí tự
+    
+        return keyPosition; // Trả về mảng vị trí
     }
 
     // Hàm mã hóa
