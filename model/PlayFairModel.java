@@ -4,7 +4,6 @@ public class PlayFairModel {
     private String plainText;
     private String cipherText;
     private String key;
-    private String generateKey;
     private char[][] array = new char[5][5];
 
     // Khởi tạo
@@ -52,51 +51,52 @@ public class PlayFairModel {
         this.array = array;
     }
 
+    // Hàm tạo khóa
     public String generateKeyFromKey(String key) {
-        boolean[] visited = new boolean[26];
-        char[][] matrix = new char[5][5];
-        String result = "";
-        int index = 0;
+        boolean[] visited = new boolean[26]; // Tạo biến để gán cho những kí tự đã duyệt qua
+        char[][] matrix = new char[5][5]; // Mảng để lưu trữ khóa
+        String result = ""; // Biến lưu khóa thành chuỗi
+        int index = 0; // Biến lưu vị trí của kí tự
 
         for (int i = 0; i < key.length(); i++) {
             char c = key.charAt(i);
-            if (c == 'j') continue;
+            if (c == 'j') continue; // Bỏ qua kí tự j
             if (c < 'a' || c > 'z') continue; // Bỏ qua ký tự không hợp lệ
-            if (!visited[c - 'a']) {
-                visited[c - 'a'] = true;
-                matrix[index / 5][index % 5] = c;
-                index++;
+            if (!visited[c - 'a']) { // Nếu chưa duyệt qua kí tự 
+                visited[c - 'a'] = true; // Đánh dấu là đã duyệt qua
+                matrix[index / 5][index % 5] = c; // Gán vào ma trận
+                index++; // Chuyển qua vị trí tiếp theo
             }
         }
 
-        char ch = 'a';
-        while (index < 25) {
-            if (ch != 'j' && !visited[ch - 'a']) {
+        char ch = 'a'; // Bắt đầu từ kí tự 'a'
+        while (index < 25) { // Tiếp tục cho đến khi đủ 25 kí tự
+            if (ch != 'j' && !visited[ch - 'a']) { // Nếu kí tự khác 'j' và chưa được duyệt
                 matrix[index / 5][index % 5] = ch;
                 index++;
             }
-            ch++;
+            ch++; // Chuyển qua kí tự tiếp theo
         }
 
         this.array = matrix; // Lưu ma trận khóa vào thuộc tính array
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                result += matrix[i][j] + "";
+                result += matrix[i][j] + ""; // Thêm tứ tự vào chuỗi từ ma trận
             }
         }
-        return result; // Lưu ma trận khóa vào thuộc tính array
+        return result; // Trả về chuỗi
     }
 
     public String formatPlainText(String plain_Text) {
-        String message = "";
+        String message = ""; 
         int plainText_Length = plainText.length();
 
         for (int i = 0; i < plainText_Length; i++) {
-            char c = plain_Text.charAt(i);
-            if (c == 'j') {
+            char ch = plain_Text.charAt(i);
+            if (ch == 'j') {
                 message += 'i';
-            } else if (c >= 'a' && c <= 'z') {
-                message += c;
+            } else if (ch >= 'a' && ch <= 'z') {
+                message += ch;
             }
         }
 
@@ -136,10 +136,11 @@ public class PlayFairModel {
             char ch1 = plaintext.charAt(i);
             char ch2 = plaintext.charAt(i + 1); // Sử dụng 'x' nếu không có ký tự thứ hai
 
+            // Biến lưu trữ vị trí của từng kí tự
             int[] ch1pos = getCharacterPosition(ch1);
             int[] ch2pos = getCharacterPosition(ch2);
 
-
+            // Lấy từng vị trí
             int r1 = ch1pos[0];
             int c1 = ch1pos[1];
             int r2 = ch2pos[0];
@@ -166,7 +167,7 @@ public class PlayFairModel {
 
         for (int i = 0; i < plaintext.length(); i += 2) {
             char ch1 = plaintext.charAt(i);
-            char ch2 = plaintext.charAt(i + 1); // Sử dụng 'x' nếu không có ký tự thứ hai
+            char ch2 = plaintext.charAt(i + 1); 
 
             int[] ch1pos = getCharacterPosition(ch1);
             int[] ch2pos = getCharacterPosition(ch2);
@@ -196,7 +197,6 @@ public class PlayFairModel {
             cipherText += array[r1][c1]; // Thêm kết quả vào chuỗi
             cipherText += array[r2][c2];
         }
-        System.out.println("Cipher Text luc nay: " + cipherText);
     }
 
     public void decryption() {
@@ -229,6 +229,8 @@ public class PlayFairModel {
             cipherText += array[r2][c2];
         }
     }
+
+    // Hàm reset CipherText
     public void resetCipherText() {
         this.setCipherText("");
     }

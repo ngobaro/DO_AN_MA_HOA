@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import controller.VegernereListener;
-import model.VegernereModel;
+import model.VeginereModel;
 
 import java.io.IOException;
 import java.awt.image.BufferedImage;
@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
  */
 public class VegernereView extends JPanel {
     private Font font;
-    private VegernereModel vegernereModel;
+    private VeginereModel vegernereModel;
     private GridBagConstraints gbc;
 
     private JTextArea jTextArea_plain;
@@ -81,7 +81,7 @@ public class VegernereView extends JPanel {
         };
         // khởi tạo các thuộc tính đã khai báo
         ac = new VegernereListener(this);
-        vegernereModel = new VegernereModel();
+        vegernereModel = new VeginereModel();
         font = new Font("Arial", Font.BOLD, 15);
         jPanel_BackGround.setLayout(new GridBagLayout());// setlayout cho jPanel_BackGround
         gbc = new GridBagConstraints();
