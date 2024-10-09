@@ -24,7 +24,7 @@ public class PlayFairModel {
     }
 
     public void setPlainText(String plainText) {
-        this.plainText = plainText.replaceAll("//s", "");
+        this.plainText = plainText.replaceAll("\\s", "").toLowerCase();
     }
 
     public String getCipherText() {
@@ -40,7 +40,7 @@ public class PlayFairModel {
     }
 
     public void setKey(String key) {
-        this.key = key;
+        this.key = key.replaceAll("\\s", "").toLowerCase();
     }
 
     public char[][] getArray() {
@@ -52,7 +52,7 @@ public class PlayFairModel {
     }
 
     // Hàm tạo khóa
-    public String generateKeyFromKey(String key) {
+    public String generateKeyFromKey() {
         boolean[] visited = new boolean[26]; // Tạo biến để gán cho những kí tự đã duyệt qua
         char[][] matrix = new char[5][5]; // Mảng để lưu trữ khóa
         String result = ""; // Biến lưu khóa thành chuỗi

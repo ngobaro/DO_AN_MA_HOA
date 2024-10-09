@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
  */
 public class VeginereView extends JPanel {
     private Font font;
-    private VeginereModel vegernereModel;
+    private VeginereModel veginereModel;
     private GridBagConstraints gbc;
 
     private JTextArea jTextArea_plain;
@@ -83,7 +83,7 @@ public class VeginereView extends JPanel {
         };
         // khởi tạo các thuộc tính đã khai báo
         ac = new VeginereListener(this);
-        vegernereModel = new VeginereModel();
+        veginereModel = new VeginereModel();
         font = new Font("Arial", Font.BOLD, 15);
         jPanel_BackGround.setLayout(new GridBagLayout());// setlayout cho jPanel_BackGround
         gbc = new GridBagConstraints();
@@ -224,21 +224,28 @@ public class VeginereView extends JPanel {
     }
 
     public void createKey() {// hàm tạo key
-        vegernereModel.setPlainText(jTextArea_plain.getText());// truyền chuỗi plaintext vào model vào tạo key
-        vegernereModel.setKey(key.getText());// truyền chuỗi keytext vào model vào tạo key
-        this.jTextField_alphabet.setText(vegernereModel.generateKey());// hiển thị key lên view
+        try {
+            veginereModel.setPlainText(jTextArea_plain.getText());// truyền chuỗi plaintext vào model vào tạo key
+            veginereModel.setKey(key.getText());// truyền chuỗi keytext vào model vào tạo key
+            this.jTextField_alphabet.setText(veginereModel.generateKey());// hiển thị key lên view
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập key !", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 
     public void decryption() {// hàm mã hóa decryption
-        vegernereModel.encryption();// gọi hàm model để giải mã
-        jTextArea_cipher.setText(vegernereModel.getCipherText());// hiển thị sao khi giải mã
-        vegernereModel.resetCipherText();// gọi hàm từ model để reset kết quả
+        veginereModel.encryption();// gọi hàm model để giải mã
+        jTextArea_cipher.setText(veginereModel.getCipherText());// hiển thị sao khi giải mã
+        veginereModel.resetCipherText();// gọi hàm từ model để reset kết quả
     }
 
     public void encryption() {// hàm mã hóa encryption
-        vegernereModel.decryption();// gọi hàm model để mã hóa
-        jTextArea_cipher.setText(vegernereModel.getCipherText());// hiển thị sao khi mã hóa
-        vegernereModel.resetCipherText();// gọi hàm từ model để reset kết quả
+        veginereModel.decryption();// gọi hàm model để mã hóa
+        jTextArea_cipher.setText(veginereModel.getCipherText());// hiển thị sao khi mã hóa
+        veginereModel.resetCipherText();// gọi hàm từ model để reset kết quả
     }
 
 }

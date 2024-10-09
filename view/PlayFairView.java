@@ -227,8 +227,9 @@ public class PlayFairView extends JPanel {
     }
 
     public void createKey() { // hàm tạo key
-        playFairModel.generateKeyFromKey(this.key.getText());// truyền chuỗi vào model vào tạo key
-        this.jTextField_alphabet.setText(playFairModel.generateKeyFromKey(this.key.getText()));// hiển thị key lên view
+        playFairModel.setKey(this.key.getText());
+        //playFairModel.generateKeyFromKey(this.key.getText());// truyền chuỗi vào model vào tạo key
+        this.jTextField_alphabet.setText(playFairModel.generateKeyFromKey());// hiển thị key lên view
 
     }
 
