@@ -106,27 +106,33 @@ public class TranspositionModel {
     // Hàm giải mã
     public void decryption() {
         int keywordLength = key.length();
-        int numOfRows = plaintext.length() / keywordLength; // Tính số hàng
+        int numOfRows = (plaintext.length() + keywordLength - 1) / keywordLength; // Tính số hàng
         char[][] arr = new char[numOfRows][keywordLength];
-
+    
         int[] keyPosition = getNumberLocation();
-
+    
         // Điền ký tự vào ma trận theo vị trí đã xác định
         for (int i = 0, z = 0; i < keywordLength; i++) {
             int col = keyPosition[i];
             for (int j = 0; j < numOfRows; j++) {
-                arr[j][col] = plaintext.charAt(z++);
+                // Chỉ thêm ký tự nếu còn ký tự để thêm
+                if (z < plaintext.length()) {
+                    arr[j][col] = plaintext.charAt(z++);
+                } else {
+                    arr[j][col] = 'X'; // Nếu ma trận thiếu kí tự thì thêm "Z" vào
+                }
             }
         }
-
+    
         // Xây dựng chuỗi thông điệp giải mã
+        ciphertext = ""; // Đặt lại ciphertext trước khi xây dựng
         for (int i = 0; i < numOfRows; i++) {
             for (int j = 0; j < keywordLength; j++) {
                 ciphertext += arr[i][j]; // Thêm ký tự vào chuỗi thông điệp
             }
         }
     }
-
+    
     public void resetCipherText() {
         this.ciphertext = "";
     }
