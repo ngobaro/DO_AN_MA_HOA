@@ -51,6 +51,16 @@ public class PlayFairModel {
         this.array = array;
     }
 
+    public boolean check(String test) {
+        char[] chKey = test.toCharArray();
+        for (int i = 0; i < chKey.length; i++) {
+            if (chKey[i] >= '0' && chKey[i] <= '9') {
+                return false; 
+            }
+        }
+        return true;
+    }
+    
     // Hàm tạo khóa
     public String generateKeyFromKey() {
         boolean[] visited = new boolean[26]; // Tạo biến để gán cho những kí tự đã duyệt qua

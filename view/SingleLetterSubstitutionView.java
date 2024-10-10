@@ -220,31 +220,48 @@ public class SingleLetterSubstitutionView extends JPanel {
     }
 
     public void encryption() {
-        singleLetterSubstitutionModel.setKey(key.getText());
-        System.out.println(singleLetterSubstitutionModel.getKey());
-        if (!singleLetterSubstitutionModel.duplicateKey(singleLetterSubstitutionModel.getKey())) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ 26 kí tự và không trùng nhau !", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            this.key.setText(singleLetterSubstitutionModel.getKey());
-            singleLetterSubstitutionModel.setPlaintext(jTextArea_plain.getText());
-            singleLetterSubstitutionModel.encryption();
-            jTextArea_cipher.setText(singleLetterSubstitutionModel.getCiphertext());
-            singleLetterSubstitutionModel.resetCipherText();
+        if(singleLetterSubstitutionModel.check(this.jTextArea_plain.getText()) ) {
+            if(singleLetterSubstitutionModel.check(this.key.getText())){
+                singleLetterSubstitutionModel.setKey(key.getText());
+                if (!singleLetterSubstitutionModel.duplicateKey(singleLetterSubstitutionModel.getKey())) {
+                    JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ 26 kí tự và không trùng nhau !", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    this.key.setText(singleLetterSubstitutionModel.getKey());
+                    singleLetterSubstitutionModel.setPlaintext(jTextArea_plain.getText());
+                    singleLetterSubstitutionModel.encryption();
+                    jTextArea_cipher.setText(singleLetterSubstitutionModel.getCiphertext());
+                    singleLetterSubstitutionModel.resetCipherText();
+                }
+            }else {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập message hoặc key là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }else {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập message hoặc key là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
 
     }
 
     public void decryption() {
-        singleLetterSubstitutionModel.setKey(key.getText());
-        System.out.println(singleLetterSubstitutionModel.getKey());
-        if (!singleLetterSubstitutionModel.duplicateKey(singleLetterSubstitutionModel.getKey())) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ 26 kí tự và không trùng nhau !", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            this.key.setText(singleLetterSubstitutionModel.getKey());
-            singleLetterSubstitutionModel.setPlaintext(jTextArea_plain.getText());
-            singleLetterSubstitutionModel.decryption();
-            jTextArea_cipher.setText(singleLetterSubstitutionModel.getCiphertext());
-            singleLetterSubstitutionModel.resetCipherText();
+        if(singleLetterSubstitutionModel.check(this.jTextArea_plain.getText()) ) {
+            if(singleLetterSubstitutionModel.check(this.key.getText())){
+                singleLetterSubstitutionModel.setKey(key.getText());
+                if (!singleLetterSubstitutionModel.duplicateKey(singleLetterSubstitutionModel.getKey())) {
+                    JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ 26 kí tự và không trùng nhau !", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    this.key.setText(singleLetterSubstitutionModel.getKey());
+                    singleLetterSubstitutionModel.setPlaintext(jTextArea_plain.getText());
+                    singleLetterSubstitutionModel.decryption();
+                    jTextArea_cipher.setText(singleLetterSubstitutionModel.getCiphertext());
+                    singleLetterSubstitutionModel.resetCipherText();
+                }
+            }else {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập message hoặc key là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }else {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập message hoặc key là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }

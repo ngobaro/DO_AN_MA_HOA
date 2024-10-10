@@ -224,28 +224,42 @@ public class VeginereView extends JPanel {
     }
 
     public void createKey() {// hàm tạo key
-        try {
-            veginereModel.setPlainText(jTextArea_plain.getText());// truyền chuỗi plaintext vào model vào tạo key
-            veginereModel.setKey(key.getText());// truyền chuỗi keytext vào model vào tạo key
-            this.jTextField_alphabet.setText(veginereModel.generateKey());// hiển thị key lên view
-            
-        } catch (Exception e) {
-            // TODO: handle exception
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập key !", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        if(veginereModel.check(this.key.getText())){
+            try {
+                veginereModel.setPlainText(jTextArea_plain.getText());// truyền chuỗi plaintext vào model vào tạo key
+                veginereModel.setKey(key.getText());// truyền chuỗi keytext vào model vào tạo key
+                this.jTextField_alphabet.setText(veginereModel.generateKey());// hiển thị key lên view
+                
+            } catch (Exception e) {
+                // TODO: handle exception
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập key !", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+        }   
         
     }
 
     public void decryption() {// hàm mã hóa decryption
-        veginereModel.encryption();// gọi hàm model để giải mã
-        jTextArea_cipher.setText(veginereModel.getCipherText());// hiển thị sao khi giải mã
-        veginereModel.resetCipherText();// gọi hàm từ model để reset kết quả
+       
+        if(veginereModel.check(this.jTextArea_plain.getText()) ) {
+            veginereModel.encryption();// gọi hàm model để giải mã
+            jTextArea_cipher.setText(veginereModel.getCipherText());// hiển thị sao khi giải mã
+            veginereModel.resetCipherText();// gọi hàm từ model để reset kết quả
+        }else {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập message là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void encryption() {// hàm mã hóa encryption
-        veginereModel.decryption();// gọi hàm model để mã hóa
-        jTextArea_cipher.setText(veginereModel.getCipherText());// hiển thị sao khi mã hóa
-        veginereModel.resetCipherText();// gọi hàm từ model để reset kết quả
+       
+        if(veginereModel.check(this.jTextArea_plain.getText()) ) {
+                veginereModel.decryption();// gọi hàm model để mã hóa
+                jTextArea_cipher.setText(veginereModel.getCipherText());// hiển thị sao khi mã hóa
+                veginereModel.resetCipherText();// gọi hàm từ model để reset kết quả
+        }else {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập message là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }

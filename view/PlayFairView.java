@@ -227,24 +227,36 @@ public class PlayFairView extends JPanel {
     }
 
     public void createKey() { // hàm tạo key
-        playFairModel.setKey(this.key.getText());
-        //playFairModel.generateKeyFromKey(this.key.getText());// truyền chuỗi vào model vào tạo key
-        this.jTextField_alphabet.setText(playFairModel.generateKeyFromKey());// hiển thị key lên view
-
+        if(playFairModel.check(this.key.getText())) {
+            playFairModel.setKey(this.key.getText());
+            this.jTextField_alphabet.setText(playFairModel.generateKeyFromKey());// hiển thị key lên view
+        }else {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập key là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 
     public void decryption() { // hàm thực hiện mã hóa để hiện lên view
-        playFairModel.setPlainText(this.jTextArea_plain.getText());// lấy chuỗi từ view truyền về model
-        playFairModel.decryption();// gọi hàm từ model
-        this.jTextArea_cipher.setText(playFairModel.getCipherText());// lấy chuỗi đã mã hóa bên model hiển thị lên view
-        playFairModel.resetCipherText();// gọi hàm từ model
+        if(playFairModel.check(this.jTextArea_plain.getText())) {
+            playFairModel.setPlainText(this.jTextArea_plain.getText());// lấy chuỗi từ view truyền về model
+            playFairModel.decryption();// gọi hàm từ model
+            this.jTextArea_cipher.setText(playFairModel.getCipherText());// lấy chuỗi đã mã hóa bên model hiển thị lên view
+            playFairModel.resetCipherText();// gọi hàm từ model
+        }else {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập message là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 
     public void encryption() {// hàm thực hiện mã hóa để hiện lên view
+        if(playFairModel.check(this.jTextArea_plain.getText())) {
         playFairModel.setPlainText(this.jTextArea_plain.getText());// lấy chuỗi từ view truyền về model
         playFairModel.encryption();// gọi hàm từ model
         this.jTextArea_cipher.setText(playFairModel.getCipherText());// lấy chuỗi đã mã hóa bên model hiển thị lên view
         playFairModel.resetCipherText();// gọi hàm từ model
+        }else{
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập message là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);   
+        }
     }
 
 }

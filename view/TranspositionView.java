@@ -214,19 +214,37 @@ public class TranspositionView extends JPanel {
     }
 
     public void encryption() {
-        transpositionModel.setKey(key.getText());
-        transpositionModel.setPlaintext(this.jTextArea_plain.getText());// lấy chuỗi từ view truyền về model
-        transpositionModel.encryption();// gọi hàm từ model
-        this.jTextArea_cipher.setText(transpositionModel.getCiphertext());// lấy chuỗi mã hóa ở model hiển thị lên view
-        transpositionModel.resetCipherText();// gọi hàm từ model
+        if(transpositionModel.check(this.jTextArea_plain.getText()) ) {
+            if(transpositionModel.check(this.key.getText())){
+                transpositionModel.setKey(key.getText());
+                transpositionModel.setPlaintext(this.jTextArea_plain.getText());// lấy chuỗi từ view truyền về model
+                transpositionModel.encryption();// gọi hàm từ model
+                this.jTextArea_cipher.setText(transpositionModel.getCiphertext());// lấy chuỗi mã hóa ở model hiển thị lên view
+                transpositionModel.resetCipherText();// gọi hàm từ model
+            }else {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập message hoặc key là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập message hoặc key là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 
     public void decryption() {
-        transpositionModel.setKey(key.getText());
-        transpositionModel.setPlaintext(this.jTextArea_plain.getText());// lấy chuỗi từ view truyền về model
-        transpositionModel.decryption();// gọi hàm từ model
-        this.jTextArea_cipher.setText(transpositionModel.getCiphertext());// lấy chuỗi giải mã ở model hiển thị lên view
-        transpositionModel.resetCipherText();// gọi hàm từ model
+        
+        if(transpositionModel.check(this.jTextArea_plain.getText()) ) {
+            if(transpositionModel.check(this.key.getText())){
+                transpositionModel.setKey(key.getText());
+                transpositionModel.setPlaintext(this.jTextArea_plain.getText());// lấy chuỗi từ view truyền về model
+                transpositionModel.decryption();// gọi hàm từ model
+                this.jTextArea_cipher.setText(transpositionModel.getCiphertext());// lấy chuỗi giải mã ở model hiển thị lên view
+                transpositionModel.resetCipherText();// gọi hàm từ model
+            }else {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập message hoặc key là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }else {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập message hoặc key là chuỗi kí tự !", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }

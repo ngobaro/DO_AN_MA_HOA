@@ -45,6 +45,16 @@ public class TranspositionModel {
     }
     // ---------------------------------
 
+    public boolean check(String test) {
+        char[] chKey = test.toCharArray();
+        for (int i = 0; i < chKey.length; i++) {
+            if (chKey[i] >= '0' && chKey[i] <= '9') {
+                return false; 
+            }
+        }
+        return true;
+    }
+    
     // Hàm lấy vị trí của từng kí tự trong key
     public int[] getNumberLocation() {
         int keywordLength = key.length();

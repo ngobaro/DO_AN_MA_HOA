@@ -44,6 +44,16 @@ public class VeginereModel {
 		this.key = key.replaceAll("\\s+", "").toUpperCase();
 	}
 	// ---------------------------------
+	
+	public boolean check(String test) {
+        char[] chKey = test.toCharArray();
+        for (int i = 0; i < chKey.length; i++) {
+            if (chKey[i] >= '0' && chKey[i] <= '9') {
+                return false; 
+            }
+        }
+        return true;
+    }
 
 	public String generateKey() {
 		String result = "";
